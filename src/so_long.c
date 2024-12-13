@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:41:18 by marcnava          #+#    #+#             */
-/*   Updated: 2024/12/13 14:10:38 by marcnava         ###   ########.fr       */
+/*   Updated: 2024/12/13 22:20:30 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,24 @@ static void error(void)
 
 int32_t	main(void)
 {
-	// Start mlx
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "Test", true);
+	
+	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, TITLE, true);
 	if (!mlx)
 		error();
 
-	// Try to load the file
-	xpm_t* xpm = mlx_load_xpm42("./tower.xpm42");
+	xpm_t* xpm = mlx_load_xpm42("./ship.xpm42");
 	if (!xpm)
 		error();
 
-	// Convert texture to a displayable image
 	mlx_image_t* img = mlx_texture_to_image(mlx, &xpm->texture);
 	if (!img)
 		error();
 
-	// Display the image
-	if (mlx_image_to_window(mlx, img, 0, 0) < 0)
+	if (mlx_image_to_window(mlx, img, WIDTH / 2 - TILESIZE / 2, HEIGHT / 2 - TILESIZE / 2) < 0)
 		error();
 
 	mlx_loop(mlx);
 
-	// Optional, terminate will clean up any leftovers, this is just to demonstrate.
 	mlx_delete_image(mlx, img);
 	mlx_delete_xpm42(xpm);
 	mlx_terminate(mlx);

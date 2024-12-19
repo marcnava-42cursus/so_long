@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/13 21:55:49 by marcnava          #+#    #+#             */
-/*   Updated: 2024/12/13 21:57:13 by marcnava         ###   ########.fr       */
+/*   Created: 2024/12/18 17:05:06 by marcnava          #+#    #+#             */
+/*   Updated: 2024/12/19 01:09:08 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#include "../include/so_long.h"
 
-# include "../libs/libft/headers/libft.h"
-# include "../libs/minilibx/include/MLX42/MLX42.h"
-
-typedef struct	s_player
+void	game_init(t_game *game, char *map_path)
 {
-	mlx_image_t	sprite;
-	int32_t		x;
-	int32_t		y;
-}	t_player;
-
-#endif
+	ft_calloc(1, sizeof(t_game));
+	game->map = read_map(&game, map_path);
+	game->mlx = mlx_init(512, 512, TITLE, true);
+}

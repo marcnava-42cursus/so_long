@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2024/12/13 21:55:40 by marcnava         ###   ########.fr       */
+/*   Updated: 2024/12/19 01:10:08 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,33 @@
 # include "../libs/libft/headers/libft.h"
 # include "../libs/minilibx/include/MLX42/MLX42.h"
 
-# define WIDTH 512
-# define HEIGHT 512
-# define TITLE "So Short"
-# define TILESIZE 64
+# define PLAYER "./assets/player.xpm42"
+# define WALL "./assets/wall.xpm42"
+# define FLOOR "./assets/floor.xpm42"
+# define EXIT "./assets/exit.xpm42"
+# define COLLECTIBLE "./assets/collectible.xpm42"
+
+# define TITLE "So Long"
+
+typedef struct s_map
+{
+	char	**map;
+	int32_t	width;
+	int32_t	height;
+}	t_map;
 
 typedef struct s_game
 {
-	mlx_t	mlx;
-	int32_t	w_width;
-	int32_t	w_height;
+	mlx_t	*mlx;
+	t_map	*map;
 }	t_game;
+
+// map
+
+t_map	*read_map(t_game *game, char *path);
+
+// game
+
+void	game_init(t_game *game, char *map_path);
 
 #endif

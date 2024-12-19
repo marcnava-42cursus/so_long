@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2024/12/13 03:57:10 by marcnava         ###   ########.fr        #
+#    Updated: 2024/12/19 01:08:56 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ MLX			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRCSPATH	=	./src
 
-SRCS 		=	$(SRCSPATH)/so_long.c
+SRCS 		=	$(SRCSPATH)/so_long.c		\
+				$(SRCSPATH)/game_init.c		\
+				$(SRCSPATH)/map_reader.c
 
 OBJS		=	$(SRCS:.c=.o)
 
@@ -59,6 +61,7 @@ clean:
 
 fclean:			clean
 				@$(RM) $(NAME)
+				@$(MAKE) fclean --no-print-directory -C $(LIBFT)
 
 compiling:
 				@printf "Compilando el programa...\n"

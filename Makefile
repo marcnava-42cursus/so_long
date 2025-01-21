@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/01/21 19:31:03 by marcnava         ###   ########.fr        #
+#    Updated: 2025/01/21 20:41:04 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,6 @@ clean:
 				@$(RM) $(LIBMLX)/build
 
 fclean:			clean
-				@$(RM) ./libs
 				@$(RM) $(NAME)
 
 compiling:
@@ -87,4 +86,4 @@ compiling:
 
 re:				fclean all
 
-.PHONY:			all clean fclean re libmlx compiling getlibss
+.PHONY:			all clean fclean re libmlx compiling getlibs

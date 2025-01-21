@@ -1,9 +1,8 @@
 .vscode/
 build/
-libs/
 
 *.a
 *.o
 *.out
 
-so_long
+so_longW

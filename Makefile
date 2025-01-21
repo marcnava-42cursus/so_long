@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2024/12/19 01:08:56 by marcnava         ###   ########.fr        #
+#    Updated: 2025/01/21 16:06:25 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,17 @@ HEADERS		=	-I ./include -I $(LIBMLX)/include
 # **************************************************************************** #
 #		OBJETIVOS	#
 
-all: 			libmlx compiling $(NAME)
+all: 			getlibs libmlx compiling $(NAME)
+
+getlibs:
+				@printf "Cloning libft\n"
+				@git clone https://github.com/marcnava-42cursus/libft.git ./libs/libft > /dev/null
+				@printf "Cloning minilibx\n"
+				@git clone https://github.com/codam-coding-college/MLX42.git ./libs/minilibx > /dev/null
+				@printf "Cloning ft_printf\n"
+				@git clone https://github.com/marcnava-42cursus/ft_printf.git ./libs/ft_printf > /dev/null
+				@printf "Cloning get_next_line\n"
+				@git clone https://github.com/marcnava-42cursus/get_next_line.git ./libs/get_next_line > /dev/null
 
 libmlx:
 				@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -60,12 +70,12 @@ clean:
 				@$(RM) $(LIBMLX)/build
 
 fclean:			clean
+				@$(RM) ./libs
 				@$(RM) $(NAME)
-				@$(MAKE) fclean --no-print-directory -C $(LIBFT)
 
 compiling:
 				@printf "Compilando el programa...\n"
 
 re:				fclean all
 
-.PHONY:			all clean fclean re libmlx compiling
+.PHONY:			all clean fclean re libmlx compiling getlibss

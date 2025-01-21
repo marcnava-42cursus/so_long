@@ -1,6 +1,0 @@
-[submodule "libs/libft"]
-	path = libs/libft
-	url = https://github.com/marcnava-42cursus/libft.git
-[submodule "libs/minilibx"]
-	path = libs/minilibx
-	url = https://github.com/codam-coding-college/MLX42.git

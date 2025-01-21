@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2024/12/19 01:10:08 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:05:01 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "../libs/libft/headers/libft.h"
 # include "../libs/minilibx/include/MLX42/MLX42.h"
+# include "../libs/ft_printf/ft_printf.h"
+# include "../libs/get_next_line/get_next_line_bonus.h"
 
 # define PLAYER "./assets/player.xpm42"
 # define WALL "./assets/wall.xpm42"

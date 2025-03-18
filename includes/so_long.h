@@ -6,17 +6,15 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/01/21 16:22:53 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:13:45 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../libs/libft/headers/libft.h"
+# include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx/include/MLX42/MLX42.h"
-# include "../libs/ft_printf/ft_printf.h"
-# include "../libs/get_next_line/get_next_line.h"
 
 # define PLAYER "./assets/player.xpm42"
 # define WALL "./assets/wall.xpm42"
@@ -39,12 +37,9 @@ typedef struct s_game
 	t_map	*map;
 }	t_game;
 
-// map
-
-t_map	*read_map(t_game *game, char *path);
-
-// game
-
-void	game_init(t_game *game, char *map_path);
+int32_t	init_game(t_game *game, char *map_path);
+int32_t	parse_map(t_game *game, char *map_path);
+void	free_map(t_map *map);
+void	free_game(t_game *game);
 
 #endif

@@ -3,7 +3,7 @@
 ## Road to success
 
 ### Generar Imagenes
-ok
+
 ### Mover Imagenes
 
 ### Detectar eventos

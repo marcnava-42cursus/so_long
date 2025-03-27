@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/07 20:13:45 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:42:24 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 typedef struct s_map
 {
 	char	**map;
-	int32_t	width;
-	int32_t	height;
+	size_t	width;
+	size_t	height;
 }	t_map;
 
 typedef struct s_game
@@ -37,9 +37,12 @@ typedef struct s_game
 	t_map	*map;
 }	t_game;
 
-int32_t	init_game(t_game *game, char *map_path);
-int32_t	parse_map(t_game *game, char *map_path);
+size_t	init_game(t_game *game, char *map_path);
+size_t	parse_map(t_game *game, char *map_path);
 void	free_map(t_map *map);
 void	free_game(t_game *game);
+
+void	print_map(t_map *map);
+int		check_valid_path(t_map *map);
 
 #endif

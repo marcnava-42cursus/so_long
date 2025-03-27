@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 19:52:54 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/27 17:59:38 by marcnava         ###   ########.fr       */
+/*   Created: 2025/03/26 15:29:47 by marcnava          #+#    #+#             */
+/*   Updated: 2025/03/26 15:50:08 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int main(int argc, char **argv)
+void	print_map(t_map *map)
 {
-	t_game game;
+	size_t	i;
+	size_t	j;
 
-	if (argc != 2)
+	if (!map || !map->map)
 	{
-		ft_printf("Usage: %s <map_path>\n", argv[0]);
-		return (EXIT_FAILURE);
+		ft_printf("Error\nMap is not initialized\n");
+		return;
 	}
-	if (init_game(&game, argv[1]) == EXIT_FAILURE)
+	i = 0;
+	while (i < map->height)
 	{
-		return (EXIT_FAILURE);
+		ft_printf("[");
+		j = 0;
+		while (j < map->width)
+		{
+			ft_printf("%c", map->map[i][j]);
+			if (j < map->width - 1)
+				ft_printf(",");
+			j++;
+		}
+		ft_printf("],\n");
+		i++;
 	}
-	// print_map(game.map);
-	return (EXIT_SUCCESS);
 }

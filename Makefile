@@ -6,40 +6,44 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/03/07 20:16:50 by marcnava         ###   ########.fr        #
+#    Updated: 2025/03/27 17:28:05 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # **************************************************************************** #
 #		VARIABLES	#
 
-NAME		=	so_long
-CC			=	cc
-RM			=	rm -rf
+NAME		:=	so_long
+CC			:=	cc
+RM			:=	rm -rf
 
-# CFLAGS		=	-Wextra -Wall -Werror -Wunreachable-code -Ofast
-COMPILER	=	$(CC) $(CFLAGS)
+CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast -g3
+COMPILER	:=	$(CC) $(CFLAGS)
 
-LIBFT		=	./libs/libft
-LIBMLX		=	./libs/minilibx
+LIBFT		:=	./libs/libft
+LIBMLX		:=	./libs/minilibx
 
-MLX			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+MLX			:=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
-SRCSPATH	=	./src
-BUILD		=	./build
+# **************************************************************************** #
+#		FILES		#
+
+SRCSPATH	:=	./src
+BUILD		:=	./build
+UTILS		:=	$(SRCSPATH)/utils
+HEADERS		:=	-I./includes -I$(LIBMLX)/include -I$(LIBFT)/includes
 
 SRCS 		=	$(SRCSPATH)/so_long.c \
-				$(SRCSPATH)/game_utils.c
+				$(SRCSPATH)/game_utils.c \
+				$(SRCSPATH)/print_map.c
 
-OBJS		=	$(SRCS:$(SRCSPATH)/%.c=$(BUILD)/%.o)
+SRCS		+=	$(UTILS)/map_checker.c \
+				$(UTILS)/flood_fill.c
+
+OBJS		:=	$(SRCS:$(SRCSPATH)/%.c=$(BUILD)/%.o)
 
 # **************************************************************************** #
-#		ARCHIVOS	#
-
-HEADERS		=	-I ./includes -I $(LIBMLX)/include -I $(LIBFT)/includes
-
-# **************************************************************************** #
-#		OBJETIVOS	#
+#		RULES		#
 
 all: 			libmlx $(NAME)
 
@@ -52,7 +56,7 @@ $(LIBFT)/libft.a:
 $(NAME):		$(OBJS) $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 				@$(CC) $(HEADERS) $(OBJS) $(MLX) -L$(LIBFT) -lft -o $(NAME)
 
-$(BUILD)/%.o: $(SRCSPATH)/%.c
+$(BUILD)/%.o:	$(SRCSPATH)/%.c
 				@mkdir -p $(@D)
 				@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 

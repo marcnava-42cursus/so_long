@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 19:52:54 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/27 17:59:38 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:50:43 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	if (init_game(&game, argv[1]) == EXIT_FAILURE)
-	{
 		return (EXIT_FAILURE);
-	}
-	// print_map(game.map);
+	mlx_key_hook(game.mlx, &key_pressed_handler, &game);
+	mlx_loop(game.mlx);
 	return (EXIT_SUCCESS);
 }

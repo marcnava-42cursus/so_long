@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:15:02 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/27 18:39:16 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:06:07 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static int	is_valid_char(char c)
 
 static int	validate_map(t_map *map)
 {
-	size_t	i, j;
-	int		p_count, e_count, c_count;
+	size_t	i;
+	size_t	j;
+	int		p_count;
+	int		e_count;
+	int		c_count;
 
-	p_count = 0;
-	e_count = 0;
-	c_count = 0;
-	i = 0;
+	p_count = e_count = c_count = i = 0;
 	while (i < map->height)
 	{
 		if (ft_strlen(map->map[i]) != map->width)
@@ -43,7 +43,8 @@ static int	validate_map(t_map *map)
 		while (j < map->width)
 		{
 			if (!is_valid_char(map->map[i][j]))
-				return (ft_printf("Error\nInvalid character in map: %c\n", map->map[i][j]), 0);
+				return (ft_printf("Error\nInvalid character in map: %c\n",
+					map->map[i][j]), 0);
 			if (map->map[i][j] == 'P') p_count++;
 			if (map->map[i][j] == 'E') e_count++;
 			if (map->map[i][j] == 'C') c_count++;
@@ -51,12 +52,8 @@ static int	validate_map(t_map *map)
 		}
 		i++;
 	}
-	if (p_count != 1)
-		return (ft_printf("Error\nMap must have exactly 1 player (P), found %d\n", p_count), 0);
-	if (e_count != 1)
-		return (ft_printf("Error\nMap must have exactly 1 exit (E), found %d\n", e_count), 0);
-	if (c_count < 1)
-		return (ft_printf("Error\nMap must have at least 1 collectible (C)\n"), 0);
+	if (map_errors(p_count, c_count, e_count))
+		return (0);
 	j = 0;
 	while (j < map->width)
 	{

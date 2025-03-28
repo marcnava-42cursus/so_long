@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/03/27 17:28:05 by marcnava         ###   ########.fr        #
+#    Updated: 2025/03/28 22:45:08 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,13 @@ HEADERS		:=	-I./includes -I$(LIBMLX)/include -I$(LIBFT)/includes
 
 SRCS 		=	$(SRCSPATH)/so_long.c \
 				$(SRCSPATH)/game_utils.c \
-				$(SRCSPATH)/print_map.c
+				$(SRCSPATH)/print_map.c \
+				$(SRCSPATH)/draw_map.c \
+				$(SRCSPATH)/movement.c
 
 SRCS		+=	$(UTILS)/map_checker.c \
-				$(UTILS)/flood_fill.c
+				$(UTILS)/flood_fill.c \
+				$(UTILS)/error_handler.c
 
 OBJS		:=	$(SRCS:$(SRCSPATH)/%.c=$(BUILD)/%.o)
 

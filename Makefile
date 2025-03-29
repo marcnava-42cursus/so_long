@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/03/28 22:45:08 by marcnava         ###   ########.fr        #
+#    Updated: 2025/03/29 19:13:14 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ LIBFT		:=	./libs/libft
 LIBMLX		:=	./libs/minilibx
 
 MLX			:=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+
+GAME_LANG	?=	en-US
 
 # **************************************************************************** #
 #		FILES		#
@@ -61,7 +63,7 @@ $(NAME):		$(OBJS) $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 
 $(BUILD)/%.o:	$(SRCSPATH)/%.c
 				@mkdir -p $(@D)
-				@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+				@$(CC) $(CFLAGS) -D LANG=\"$(GAME_LANG)\" -o $@ -c $< $(HEADERS)
 
 clean:
 				@$(RM) $(BUILD)

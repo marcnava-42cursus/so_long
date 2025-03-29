@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/28 22:40:38 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/29 19:07:21 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 # include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx/include/MLX42/MLX42.h"
 
-# define PLAYER "./textures/player.xpm42"
-# define WALL "./textures/wall.xpm42"
-# define FLOOR "./textures/floor.xpm42"
-# define EXIT "./textures/exit.xpm42"
-# define COLLECTIBLE "./textures/coin.xpm42"
+# ifndef LANG
+#  define LANG "en-US"
+# endif
+
+# define PLAYER "/player.xpm42"
+# define WALL "/wall.xpm42"
+# define FLOOR "/floor.xpm42"
+# define EXIT "/exit.xpm42"
+# define COLLECTIBLE "/coin.xpm42"
 
 # define TITLE "So Short"
 

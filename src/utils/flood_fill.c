@@ -6,26 +6,19 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/27 18:39:59 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/29 20:47:57 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void flood_fill(char **map, int x, int y)
+static void	flood_fill(char **map, int x, int y)
 {
-	// Si está fuera del mapa o en una pared ('1'), no seguir
 	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == '1')
 		return ;
-	
-	// Si ya fue visitado, no seguir
 	if (map[y][x] == 'V')
 		return ;
-	
-	// Marcar como visitado
 	map[y][x] = 'V';
-
-	// Llamadas recursivas en las 4 direcciones
 	flood_fill(map, x + 1, y);
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);
@@ -43,7 +36,7 @@ static char	**clone_map(char **map, int height)
 	i = 0;
 	while (i < height)
 	{
-		copy[i] = ft_strdup(map[i]); // Duplicar cada fila
+		copy[i] = ft_strdup(map[i]);
 		if (!copy[i])
 		{
 			while (i-- > 0)
@@ -56,15 +49,22 @@ static char	**clone_map(char **map, int height)
 	return (copy);
 }
 
-int check_valid_path(t_map *map)
+static int	clone_map_and_check(t_map *map, char ***map_copy)
 {
-	char	**map_copy;
-	size_t	y, x;
-	size_t	found_c = 0, found_e = 0;
+	*map_copy = clone_map(map->map, map->height);
+	if (!(*map_copy))
+	{
+		ft_printf("Error\nFailed to allocate memory for map check\n");
+		return (0);
+	}
+	return (1);
+}
 
-	map_copy = clone_map(map->map, map->height);
-	if (!map_copy)
-		return (ft_printf("Error\nFailed to allocate memory for map check\n"), 0);
+static int	find_player_and_fill_map(char **map_copy, t_map *map)
+{
+	size_t	y;
+	size_t	x;
+
 	y = 0;
 	while (y < map->height)
 	{
@@ -74,13 +74,24 @@ int check_valid_path(t_map *map)
 			if (map->map[y][x] == 'P')
 			{
 				flood_fill(map_copy, x, y);
-				break ;
+				return (1);
 			}
 			x++;
 		}
 		y++;
 	}
-	// Revisar si quedan 'C' o 'E' sin alcanzar
+	return (0);
+}
+
+static int	check_reachable_items(char **map_copy, t_map *map)
+{
+	size_t	y;
+	size_t	x;
+	size_t	found_c;
+	size_t	found_e;
+
+	found_c = 0;
+	found_e = 0;
 	y = 0;
 	while (y < map->height)
 	{
@@ -95,9 +106,28 @@ int check_valid_path(t_map *map)
 		}
 		y++;
 	}
-	y = 0;
-	ft_free_matrix((void **)map_copy);
 	if (found_c || found_e)
-		return (ft_printf("Error\nNot all collectibles or exit are reachable\n"), 0);
+		return (ft_printf(
+				"Error\nNot all collectibles or exit are reachable\n"), 0);
+	return (1);
+}
+
+int	check_valid_path(t_map *map)
+{
+	char	**map_copy;
+
+	if (!clone_map_and_check(map, &map_copy))
+		return (0);
+	if (!find_player_and_fill_map(map_copy, map))
+	{
+		ft_free_matrix((void **)map_copy);
+		return (0);
+	}
+	if (!check_reachable_items(map_copy, map))
+	{
+		ft_free_matrix((void **)map_copy);
+		return (0);
+	}
+	ft_free_matrix((void **)map_copy);
 	return (1);
 }

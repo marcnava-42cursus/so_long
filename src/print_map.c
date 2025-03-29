@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:29:47 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/26 15:50:08 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/29 20:49:08 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_map(t_map *map)
 	if (!map || !map->map)
 	{
 		ft_printf("Error\nMap is not initialized\n");
-		return;
+		return ;
 	}
 	i = 0;
 	while (i < map->height)

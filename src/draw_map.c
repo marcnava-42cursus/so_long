@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:18:43 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/29 20:59:12 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/03/31 18:41:46 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,14 @@ void	draw_map(t_game *game)
 		}
 		row++;
 	}
+}
+
+void	draw_tile(t_game *game, size_t row, size_t col)
+{
+	mlx_image_t	*img;
+	char		tile;
+
+	tile = game->map->map[row][col];
+	img = get_image_for_tile(tile, game);
+	mlx_image_to_window(game->mlx, img, col * TILE_SIZE, row * TILE_SIZE);
 }

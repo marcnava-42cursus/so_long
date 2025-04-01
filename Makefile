@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/03/29 19:13:14 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/01 17:22:08 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME		:=	so_long
 CC			:=	cc
 RM			:=	rm -rf
 
-CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast -g3
+CFLAGS		:=	-Wextra -Wall -Wunreachable-code -Ofast
 COMPILER	:=	$(CC) $(CFLAGS)
 
 LIBFT		:=	./libs/libft
@@ -39,7 +39,8 @@ SRCS 		=	$(SRCSPATH)/so_long.c \
 				$(SRCSPATH)/game_utils.c \
 				$(SRCSPATH)/print_map.c \
 				$(SRCSPATH)/draw_map.c \
-				$(SRCSPATH)/movement.c
+				$(SRCSPATH)/movement.c \
+				$(SRCSPATH)/exit_game.c
 
 SRCS		+=	$(UTILS)/map_checker.c \
 				$(UTILS)/flood_fill.c \

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/03/29 19:07:21 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/01 16:38:55 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,21 @@ typedef struct s_game
 	t_map		*map;
 	t_images	*textures;
 	t_player	player;
+	int			moves;
 }	t_game;
 
 size_t	init_game(t_game *game, char *map_path);
 size_t	parse_map(t_game *game, char *map_path);
-void	free_map(t_map *map);
-void	free_game(t_game *game);
 
 void	print_map(t_map *map);
 int		check_valid_path(t_map *map);
 void	draw_map(t_game *game);
 int		load_textures(t_game *game);
 int		map_errors(int p, int c, int e);
+void	cleanup_and_exit(t_game *game);
+void	draw_tile(t_game *game, size_t row, size_t col);
 
 void	key_pressed_handler(mlx_key_data_t keydata, void *param);
+void	close_window_handler(void *param);
 
 #endif

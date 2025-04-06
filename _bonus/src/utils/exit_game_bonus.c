@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_game.c                                        :+:      :+:    :+:   */
+/*   exit_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/31 20:00:53 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:22:03 by marcnava         ###   ########.fr       */
+/*   Created: 2025/04/06 18:59:49 by marcnava          #+#    #+#             */
+/*   Updated: 2025/04/06 19:03:46 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static void	cleanup_map(t_game *game)
 {

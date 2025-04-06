@@ -1,101 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checker.c                                      :+:      :+:    :+:   */
+/*   parse_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/26 18:15:02 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:26:40 by marcnava         ###   ########.fr       */
+/*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
+/*   Updated: 2025/04/06 19:15:51 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
-static int	has_ber_extension(char *filename)
-{
-	size_t	len;
-
-	len = ft_strlen(filename);
-	return (len > 4 && !ft_strncmp(filename + len - 4, ".ber", 4));
-}
-
-static int	is_valid_char(char c)
-{
-	return (c == '1' || c == '0' || c == 'P' || c == 'C' || c == 'E');
-}
-
-static int	check_row_widths(t_map *map)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < map->height)
-	{
-		if (ft_strlen(map->map[i]) != map->width)
-		{
-			ft_printf("Error: Map rows must have the same width\n");
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	count_elements(t_map *map, int *p_count, int *e_count, int *c_count)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			if (!is_valid_char(map->map[i][j]))
-				return (ft_printf("Error: Invalid character in map: %c\n",
-						map->map[i][j]), 0);
-			if (map->map[i][j] == 'P')
-				(*p_count)++;
-			if (map->map[i][j] == 'E')
-				(*e_count)++;
-			if (map->map[i][j] == 'C')
-				(*c_count)++;
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	check_walls(t_map *map)
-{
-	size_t	j;
-	size_t	i;
-
-	j = 0;
-	while (j < map->width)
-	{
-		if (map->map[0][j] != '1' || map->map[map->height - 1][j] != '1')
-		{
-			ft_printf("Error: Map must be enclosed by walls (1)\n");
-			return (0);
-		}
-		j++;
-	}
-	i = 0;
-	while (i < map->height)
-	{
-		if (map->map[i][0] != '1' || map->map[i][map->width - 1] != '1')
-		{
-			ft_printf("Error: Map must be enclosed by walls (1) at sides\n");
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
+#include "so_long_bonus.h"
 
 static int	validate_map(t_map *map)
 {
@@ -174,10 +89,10 @@ size_t	parse_map(t_game *game, char *map_path)
 	if (fd == -1)
 		return (ft_printf("Error: Failed to open map file\n"), EXIT_FAILURE);
 	if (allocate_map_memory(&map, &temp_map, fd) == 1)
-		return (close(fd), EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	lines_read = read_map_lines(fd, temp_map);
 	if (lines_read == 1)
-		return (ft_free((void **)&map), close(fd), EXIT_FAILURE);
+		return (free(map), close(fd), EXIT_FAILURE);
 	map->map = temp_map;
 	map->height = lines_read;
 	map->width = ft_strlen(temp_map[0]);

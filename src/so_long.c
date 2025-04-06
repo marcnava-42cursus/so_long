@@ -6,11 +6,11 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 19:52:54 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/01 16:39:31 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/06 18:42:45 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "so_long.h"
 
 int	main(int argc, char **argv)
 {

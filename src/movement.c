@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 22:20:53 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/01 16:38:40 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:21:44 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	move_player(t_game *game, size_t dx, size_t dy)
 	game->player.x = new_x;
 	game->player.y = new_y;
 	draw_tile(game, new_y, new_x);
+	ft_printf("Moves: %d\n", ++game->moves);
 	return (1);
 }
 
@@ -70,7 +71,7 @@ void	key_pressed_handler(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE || keydata.key == MLX_KEY_Q)
 	{
 		cleanup_and_exit(game);
-		exit(EXIT_SUCCESS);	
+		exit(EXIT_SUCCESS);
 	}
 	if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP
 		|| keydata.key == MLX_KEY_K)
@@ -84,7 +85,6 @@ void	key_pressed_handler(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT
 		|| keydata.key == MLX_KEY_L)
 		move_player(game, 1, 0);
-	ft_printf("Moves: %d\n", ++game->moves);
 }
 
 void	close_window_handler(void *param)

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:59:49 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:03:46 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 02:40:58 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,42 @@
 
 static void	cleanup_map(t_game *game)
 {
-	ft_free_matrix((void **)game->map->map);
-	ft_free((void **)&game->map);
-}
+	size_t	i;
 
-static void	cleanup_textures(t_game *game)
-{
-	if (game->textures->exit)
-		mlx_delete_image(game->mlx, game->textures->exit);
-	if (game->textures->wall)
-		mlx_delete_image(game->mlx, game->textures->wall);
-	if (game->textures->floor)
-		mlx_delete_image(game->mlx, game->textures->floor);
-	if (game->textures->player)
-		mlx_delete_image(game->mlx, game->textures->player);
-	if (game->textures->collect)
-		mlx_delete_image(game->mlx, game->textures->collect);
-	ft_free((void **)&game->textures);
+	if (game->map->image_map)
+	{
+		i = 0;
+		while (i < game->map->height)
+		{
+			if (game->map->image_map[i])
+				ft_free((void **)&game->map->image_map[i]);
+			i++;
+		}
+		ft_free((void **)&game->map->image_map);
+	}
+	if (game->map->baba_image_map)
+	{
+		i = 0;
+		while (i < game->map->height)
+		{
+			if (game->map->baba_image_map[i])
+				ft_free((void **)&game->map->baba_image_map[i]);
+			i++;
+		}
+		ft_free((void **)&game->map->baba_image_map);
+	}
+	if (game->map->baba_map)
+		ft_free((void **)&game->map->baba_map);
+	if (game->map->map)
+		ft_free_matrix((void **)game->map->map);
+	ft_free((void **)&game->map);
 }
 
 void	cleanup_and_exit(t_game *game)
 {
-	if (game->textures)
-		cleanup_textures(game);
 	if (game->map)
 		cleanup_map(game);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
+	exit(EXIT_SUCCESS);
 }

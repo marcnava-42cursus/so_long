@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:33:01 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/07 19:44:05 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:05:22 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	**clone_map(char **map, int height)
 		}
 		i++;
 	}
+	copy[height] = NULL;
 	return (copy);
 }
 

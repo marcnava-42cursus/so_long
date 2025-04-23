@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 02:51:38 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:41:52 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static int	validate_map(t_map *map)
 	e_count = 0;
 	c_count = 0;
 	if (!check_row_widths(map))
-		return (0);
+		return (ft_printf("Error: Different width sizes"), 0);
 	if (!count_elements(map, &p_count, &e_count, &c_count))
-		return (0);
+		return (ft_printf("Error: Invalid character in map\n"), 0);
 	if (map_errors(p_count, c_count, e_count))
-		return (0);
+		return (ft_printf("Error: Invalid number of elements\n"), 0);
 	if (!check_walls(map))
-		return (0);
+		return (ft_printf("Error: Map is not surrounded by walls\n"), 0);
 	if (!check_valid_path(map))
-		return (0);
+		return (ft_printf("Error: No solvable map\n"), 0);
 	return (1);
 }
 
@@ -45,6 +45,31 @@ static int	allocate_map_memory(t_map **map, char ***temp_map, int fd)
 		return (ft_printf("Error: Failed to allocate memory for map\n"),
 			close(fd), free(*map), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
+}
+
+static void	allocate_baba_map_memory(t_map *map)
+{
+	size_t	y;
+
+	map->baba_map = ft_calloc(7 + 1, sizeof(char *));
+	if (!map->baba_map)
+	{
+		ft_printf("Error: Malloc baba_map failed\n");
+		exit(EXIT_FAILURE);
+	}
+	y = 0;
+	while (y < 7)
+	{
+		map->baba_map[y] = ft_calloc(map->width + 1, sizeof(char));
+		if (!map->baba_map[y])
+		{
+			ft_printf("Error: Malloc baba_map row failed\n");
+			exit(EXIT_FAILURE);
+		}
+		map->baba_map[y][map->width] = '\0';
+		y++;
+	}
+	map->baba_map[7] = NULL;
 }
 
 static int	read_map_lines(int fd, char **temp_map)
@@ -90,17 +115,33 @@ size_t	parse_map(t_game *game, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf("Error: Failed to open map file\n"), EXIT_FAILURE);
+
 	if (allocate_map_memory(&map, &temp_map, fd) == 1)
-		return (ft_printf("Error: Failed to allocate memory"), EXIT_FAILURE);
+		return (ft_printf("Error: Failed to allocate memory\n"), EXIT_FAILURE);
+
 	lines_read = read_map_lines(fd, temp_map);
 	if (lines_read == 1)
-		return (free(map), close(fd), EXIT_FAILURE);
+	{
+		free(map);
+		close(fd);
+		return (EXIT_FAILURE);
+	}
+
 	map->map = temp_map;
 	map->height = lines_read;
 	map->width = ft_strlen(temp_map[0]);
+
+	allocate_baba_map_memory(map);
+
 	if (!validate_map(map))
-		return (ft_free_matrix((void **)map->map), free(map), close(fd),
-			EXIT_FAILURE);
+	{
+		ft_free_matrix((void **)map->map);
+		free(map);
+		close(fd);
+		return (EXIT_FAILURE);
+	}
+
 	game->map = map;
-	return (close(fd), EXIT_SUCCESS);
+	close(fd);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 16:38:07 by marcnava          #+#    #+#              #
-#    Updated: 2025/04/06 20:33:54 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/20 20:17:58 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ UTILS		:=	$(SRCSPATH)/utils
 MAP			:=	$(SRCSPATH)/map_utils
 ERROR		:=	$(SRCSPATH)/error_utils
 RENDER		:=	$(SRCSPATH)/render
+HOOKS		:=	$(SRCSPATH)/hooks
 
 HEADERS		:=	-I../includes -I$(LIBMLX)/include -I$(LIBFT)/includes
 
@@ -43,14 +44,17 @@ SRCS		=	$(SRCSPATH)/so_long_bonus.c
 
 SRCS		+=	$(MAP)/error_handler_bonus.c \
 				$(MAP)/flood_fill_bonus.c \
+				$(MAP)/flood_fill_utils_bonus.c \
 				$(MAP)/parse_map_bonus.c \
 				$(MAP)/parse_map_utils_bonus.c
 
 SRCS		+=	$(RENDER)/render_map_bonus.c \
-				$(RENDER)/texture_error_bonus.c
+				$(RENDER)/render_baba_map_bonus.c
 
 SRCS		+=	$(UTILS)/exit_game_bonus.c \
 				$(UTILS)/game_utils_bonus.c
+
+SRCS		+=	$(HOOKS)/key_handler_bonus.c
 
 OBJS		:=	$(SRCS:$(SRCSPATH)/%.c=$(BUILD)/%.o)
 

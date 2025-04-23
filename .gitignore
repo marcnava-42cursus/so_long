@@ -6,5 +6,9 @@ mokup/
 *.a
 *.o
 *.out
+*.log
+*.supp
+*.py
+*.sh
 
 so_long

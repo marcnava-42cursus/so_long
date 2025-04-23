@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 22:20:53 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:21:44 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:15:55 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ void	key_pressed_handler(mlx_key_data_t keydata, void *param)
 		exit(EXIT_SUCCESS);
 	}
 	if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP
-		|| keydata.key == MLX_KEY_K)
+		|| keydata.key == MLX_KEY_K || keydata.key == KEY_NUMPAD_8)
 		move_player(game, 0, -1);
 	if (keydata.key == MLX_KEY_A || keydata.key == MLX_KEY_LEFT
-		|| keydata.key == MLX_KEY_H)
+		|| keydata.key == MLX_KEY_H || keydata.key == KEY_NUMPAD_4)
 		move_player(game, -1, 0);
 	if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN
-		|| keydata.key == MLX_KEY_J)
+		|| keydata.key == MLX_KEY_J || keydata.key == KEY_NUMPAD_2)
 		move_player(game, 0, 1);
 	if (keydata.key == MLX_KEY_D || keydata.key == MLX_KEY_RIGHT
-		|| keydata.key == MLX_KEY_L)
+		|| keydata.key == MLX_KEY_L || keydata.key == KEY_NUMPAD_6)
 		move_player(game, 1, 0);
 }
 

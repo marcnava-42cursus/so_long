@@ -1,0 +1,17 @@
+### Bonus textures asignations
+
+- 0 -> space floor (space)
+- 1 -> space wall (asteroid)
+- 2 -> placeholder (add block)
+- 3 -> ship delete (undo)
+- 4 -> generator left (turn left)
+- 5 -> generator right (turn right)
+- 6 -> generator straigh (move)
+- 7 -> generator loop (repeat)
+- 8 -> ship floor (metal floor)
+- 9 -> ship wall (metal wall)
+- a -> play (run program)
+
+- C -> collectible (towel)
+- E -> exit (planet)
+- P -> player (ship)

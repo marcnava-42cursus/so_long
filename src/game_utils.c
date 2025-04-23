@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:06:43 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 20:37:45 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:18:23 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ size_t	init_game(t_game *game, char *map_path)
 			game->map->height * TILE_SIZE,
 			TITLE, false);
 	if (!game->mlx)
-		return (ft_printf("Error\nFailed to initialize mlx\n"), EXIT_FAILURE);
+		return (ft_printf("Error: Failed to initialize mlx\n"), EXIT_FAILURE);
+	mlx_set_window_pos(game->mlx, 10, 30);
 	load_textures(game);
 	game->moves = 0;
 	draw_map(game);

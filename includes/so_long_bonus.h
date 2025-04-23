@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:49:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 20:43:08 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 02:54:25 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,11 @@ typedef struct s_map
 {
 	mlx_image_t	***image_map;
 	char		**map;
+	mlx_image_t	***baba_image_map;
+	char		**baba_map;
 	size_t		width;
 	size_t		height;
 }	t_map;
-
-typedef struct s_images
-{
-	mlx_image_t	*exit;
-	mlx_image_t	*wall;
-	mlx_image_t	*floor;
-	mlx_image_t	*player;
-	mlx_image_t	*collect;
-}	t_images;
 
 typedef struct s_player
 {
@@ -53,7 +46,6 @@ typedef struct s_game
 {
 	mlx_t		*mlx;
 	t_map		*map;
-	t_images	*textures;
 	t_player	player;
 	size_t		moves;
 }	t_game;
@@ -61,16 +53,16 @@ typedef struct s_game
 // Map checker
 
 int		has_ber_extension(char *filename);
-int		is_valid_char(char c);
 int		check_row_widths(t_map *map);
 int		count_elements(t_map *map, int *p_count, int *e_count, int *c_count);
 int		check_walls(t_map *map);
 size_t	parse_map(t_game *game, char *map_path);
+char	**clone_map(char **map, int height);
+int		clone_map_and_check(t_map *map, char ***map_copy);
 
 // Error handler
 
 int		map_errors(int p, int c, int e);
-void	print_texture_error(t_game *game, char missing);
 
 // Utils
 
@@ -79,5 +71,11 @@ size_t	init_game(t_game *game, char *map_path);
 size_t	parse_map(t_game *game, char *map_path);
 void	cleanup_and_exit(t_game *game);
 void	render_map(t_game *game);
+void	render_baba(t_game *game);
+char	*build_texture_path(char c);
+
+// hooks
+
+void	key_pressed_handler(mlx_key_data_t keydata, void *param);
 
 #endif

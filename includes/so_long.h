@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:39:36 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:17:45 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 # define TITLE "So Short"
 
 # define TILE_SIZE 64
+
+# define KEY_NUMPAD_2 322
+# define KEY_NUMPAD_4 324
+# define KEY_NUMPAD_6 326
+# define KEY_NUMPAD_8 328
 
 typedef struct s_map
 {

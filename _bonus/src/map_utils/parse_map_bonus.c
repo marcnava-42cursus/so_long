@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:15:51 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 02:51:38 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int	read_map_lines(int fd, char **temp_map)
 	{
 		if (line[0] == '\n')
 		{
-			free(line);
+			ft_free((void **)&line);
+			line = get_next_line(fd);
 			continue ;
 		}
 		if (lines_read >= 1024)
@@ -82,6 +83,7 @@ size_t	parse_map(t_game *game, char *map_path)
 	char	**temp_map;
 	size_t	lines_read;
 
+	ft_printf("Parsing map: %s\n", map_path);
 	if (!has_ber_extension(map_path))
 		return (ft_printf("Error: Invalid file extension. Expected .ber\n"),
 			EXIT_FAILURE);
@@ -89,7 +91,7 @@ size_t	parse_map(t_game *game, char *map_path)
 	if (fd == -1)
 		return (ft_printf("Error: Failed to open map file\n"), EXIT_FAILURE);
 	if (allocate_map_memory(&map, &temp_map, fd) == 1)
-		return (EXIT_FAILURE);
+		return (ft_printf("Error: Failed to allocate memory"), EXIT_FAILURE);
 	lines_read = read_map_lines(fd, temp_map);
 	if (lines_read == 1)
 		return (free(map), close(fd), EXIT_FAILURE);

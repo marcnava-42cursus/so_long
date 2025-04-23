@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/02 15:53:30 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:43:50 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,6 @@ static void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);
 	flood_fill(map, x, y - 1);
-}
-
-static char	**clone_map(char **map, int height)
-{
-	char	**copy;
-	int		i;
-
-	copy = ft_calloc(height + 1, sizeof(char *));
-	if (!copy)
-		return (NULL);
-	i = 0;
-	while (i < height)
-	{
-		copy[i] = ft_strdup(map[i]);
-		if (!copy[i])
-		{
-			while (i-- > 0)
-				free(copy[i]);
-			free(copy);
-			return (NULL);
-		}
-		i++;
-	}
-	return (copy);
-}
-
-static int	clone_map_and_check(t_map *map, char ***map_copy)
-{
-	*map_copy = clone_map(map->map, map->height);
-	if (!(*map_copy))
-	{
-		ft_printf("Error\nFailed to allocate memory for map check\n");
-		return (0);
-	}
-	return (1);
 }
 
 static int	find_player_and_fill_map(char **map_copy, t_map *map)
@@ -108,7 +73,7 @@ static int	check_reachable_items(char **map_copy, t_map *map)
 	}
 	if (found_c || found_e)
 		return (ft_printf(
-				"Error\nNot all collectibles or exit are reachable\n"), 0);
+				"Error: Not all collectibles or exit are reachable\n"), 0);
 	return (1);
 }
 

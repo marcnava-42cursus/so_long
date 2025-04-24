@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:49:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 02:54:25 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:57:20 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@
 
 # define TILE_SIZE 64
 
-# define PLAYER "/player.xpm42"
-# define WALL "/wall.xpm42"
-# define FLOOR "/floor.xpm42"
-# define EXIT "/exit.xpm42"
-# define COLLECTIBLE "/coin.xpm42"
+# define KEY_NUMPAD_2 322
+# define KEY_NUMPAD_4 324
+# define KEY_NUMPAD_6 326
+# define KEY_NUMPAD_8 328
 
 typedef struct s_map
 {
@@ -40,6 +39,8 @@ typedef struct s_player
 {
 	size_t	x;
 	size_t	y;
+	size_t	baba_x;
+	size_t	baba_y;
 }	t_player;
 
 typedef struct s_game
@@ -48,6 +49,7 @@ typedef struct s_game
 	t_map		*map;
 	t_player	player;
 	size_t		moves;
+	char		prev_baba_tile;
 }	t_game;
 
 // Map checker
@@ -73,6 +75,7 @@ void	cleanup_and_exit(t_game *game);
 void	render_map(t_game *game);
 void	render_baba(t_game *game);
 char	*build_texture_path(char c);
+void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char);
 
 // hooks
 

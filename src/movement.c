@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 22:20:53 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/07 15:15:55 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:44:38 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	move_player(t_game *game, size_t dx, size_t dy)
 {
 	size_t	new_x;
 	size_t	new_y;
-	char	prev;
 
 	new_x = game->player.x + dx;
 	new_y = game->player.y + dy;
@@ -48,9 +47,6 @@ static int	move_player(t_game *game, size_t dx, size_t dy)
 			return (0);
 		mlx_close_window(game->mlx);
 	}
-	prev = game->map->map[new_y][new_x];
-	if (prev == 'C')
-		game->map->map[new_y][new_x] = '0';
 	game->map->map[game->player.y][game->player.x] = '0';
 	draw_tile(game, game->player.y, game->player.x);
 	game->map->map[new_y][new_x] = 'P';

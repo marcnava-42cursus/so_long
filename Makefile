@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/04/06 19:47:00 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/24 02:26:18 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME		:=	so_long
 CC			:=	cc
 RM			:=	rm -rf
 
-CFLAGS		:=	-Wextra -Wall -Wunreachable-code -Ofast
+CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast
 COMPILER	:=	$(CC) $(CFLAGS)
 
 LIBFT		:=	./libs/libft

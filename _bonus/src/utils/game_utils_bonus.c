@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:44:29 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 16:06:19 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:17:11 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ size_t	init_game(t_game *game, char *map_path)
 	if (!allocate_baba_image_map(game->map))
 		cleanup_and_exit(game);
 	game->moves = 0;
+	game->prev_baba_tile = '0';
 	return (EXIT_SUCCESS);
 }

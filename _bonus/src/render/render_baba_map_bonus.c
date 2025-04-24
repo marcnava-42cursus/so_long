@@ -6,16 +6,18 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:52:20 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 16:39:20 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:23:29 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char)
+void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char)
 {
-	char *path;
-	xpm_t *xpm;
+	char		*path;
+	xpm_t		*xpm;
+	mlx_image_t	*img;
+
 	path = build_texture_path(tile_char);
 	if (!path)
 		return ;
@@ -23,8 +25,15 @@ static void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char)
 	ft_free((void **)&path);
 	if (!xpm)
 		return ;
+	img = mlx_texture_to_image(game->mlx, &xpm->texture);
+	if (!img)
+	{
+		mlx_delete_xpm42(xpm);
+		return ;
+	}
+	game->map->baba_image_map[row][col] = img;
 	if (mlx_image_to_window(game->mlx,
-			mlx_texture_to_image(game->mlx, &xpm->texture),
+			img,
 			col * TILE_SIZE,
 			game->map->height * TILE_SIZE + row * TILE_SIZE) < 0)
 	{
@@ -34,11 +43,11 @@ static void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char)
 	mlx_delete_xpm42(xpm);
 }
 
-void render_baba(t_game *game)
+void	render_baba(t_game *game)
 {
-	size_t row;
-	size_t col;
-	char   tile_char;
+	size_t	row;
+	size_t	col;
+	char	tile_char;
 
 	row = 0;
 	while (row < 7)
@@ -49,17 +58,23 @@ void render_baba(t_game *game)
 			if (col == 0 || col == game->map->width - 1 || row == 6)
 				tile_char = '9';
 			else if (col == 1 && (row >= 1 && row <= 4))
-				tile_char = (char)(row + 3 + '0');
-			else if (row == 5 && col >= game->map->width - 5 && col <= game->map->width - 2)
+				tile_char = (row + 3) + '0';
+			else if (col == game->map->width - 5 && row == 5)
 			{
-				const char seq[] = { 'p', 'a', '2', '3' };
-				tile_char = seq[col - (game->map->width - 5)];
+				tile_char = 'p';
+				game->player.baba_x = col;
+				game->player.baba_y = row;
 			}
+			else if (col == game->map->width - 4 && row == 5)
+				tile_char = 'a';
+			else if (col == game->map->width - 3 && row == 5)
+				tile_char = '2';
+			else if (col == game->map->width - 2 && row == 5)
+				tile_char = '3';
 			else
 				tile_char = '8';
 			draw_baba_tile(game, col, row, tile_char);
 			game->map->baba_map[row][col] = tile_char;
-
 			col++;
 		}
 		row++;

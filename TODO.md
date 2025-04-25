@@ -1,17 +1,17 @@
 # SO SHORT - Checklist
 
 ## ✅ Road to Success  
-- [ ] Comprobar mapa
-- [ ] Generar Imágenes  
-- [ ] Mover Imágenes  
-- [ ] Detectar eventos  
-- [ ] Gestionar contexto  
-- [ ] Gestionar terreno  
-  - [ ] Generar Mapa  
-  - [ ] Manejar movimiento por casillas  
-- [ ] Añadir coleccionables  
-- [ ] Recolectar coleccionables  
-- [ ] Salida funcional  
+- [x] Comprobar mapa
+- [x] Generar Imágenes  
+- [x] Mover Imágenes  
+- [x] Detectar eventos  
+- [x] Gestionar contexto  
+- [x] Gestionar terreno  
+  - [x] Generar Mapa  
+  - [x] Manejar movimiento por casillas  
+- [x] Añadir coleccionables  
+- [x] Recolectar coleccionables  
+- [x] Salida funcional  
 
 ## ⚠️ Road to Madness  
 - [ ] Gestionar diferentes niveles  

@@ -11,6 +11,10 @@
 - 8 -> ship floor (metal floor)
 - 9 -> ship wall (metal wall)
 - a -> play (run program)
+- u -> up (move block)
+- l -> left (turn left block)
+- r -> right (turn right block)
+- l -> loop (loop code)
 
 - C -> collectible (towel)
 - E -> exit (planet)

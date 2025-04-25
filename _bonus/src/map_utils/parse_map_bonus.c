@@ -6,11 +6,37 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/25 04:57:19 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+static int	check_min_width(t_map *map)
+{
+	size_t	i;
+	size_t	j;
+	size_t	old_width;
+
+	if (map->width >= 7)
+		return (1);
+	old_width = map->width;
+	i = 0;
+	while (i < map->height)
+	{
+		j = old_width;
+		while (j < 7)
+		{
+			map->ship_map[i][j] = '0';
+			j++;
+		}
+		map->ship_map[i][j] = '\0';
+		i++;
+	}
+	map->width = 7;
+	return (1);
+}
+
 
 static int	validate_map(t_map *map)
 {
@@ -31,6 +57,8 @@ static int	validate_map(t_map *map)
 		return (ft_printf("Error: Map is not surrounded by walls\n"), 0);
 	if (!check_valid_path(map))
 		return (ft_printf("Error: No solvable map\n"), 0);
+	if (!check_min_width(map))
+		return (ft_printf("Error: Cannot add extra chars to map\n"), 0);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 20:15:13 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 19:07:25 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/26 01:48:58 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*build_texture_path(char c)
 	return (full);
 }
 
-static void	*draw_cell(t_game *game, size_t row, size_t col)
+void	*draw_cell(t_game *game, size_t row, size_t col)
 {
 	xpm_t		*xpm;
 	char		*path;
@@ -47,11 +47,16 @@ static void	*draw_cell(t_game *game, size_t row, size_t col)
 	ft_free((void **)&path);
 	if (!xpm)
 		return (ft_printf("Error: Missing texture for char: %c\n", c), NULL);
-	game->map->image_map[row][col] = mlx_texture_to_image(game->mlx, &xpm->texture);
+	if (c == 'P')
+	{
+		game->player.ship_x = col;
+		game->player.ship_y = row;
+	}
+	game->map->ship_image_map[row][col] = mlx_texture_to_image(game->mlx, &xpm->texture);
 	mlx_delete_xpm42(xpm);
-	if (!game->map->image_map[row][col])
+	if (!game->map->ship_image_map[row][col])
 		return (NULL);
-	if (mlx_image_to_window(game->mlx, game->map->image_map[row][col],
+	if (mlx_image_to_window(game->mlx, game->map->ship_image_map[row][col],
 			col * TILE_SIZE, row * TILE_SIZE) < 0)
 		return (NULL);
 	return ((void *)1);

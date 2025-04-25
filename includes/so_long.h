@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:40:53 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_images
 
 typedef struct s_player
 {
-	size_t	x;
-	size_t	y;
+	size_t	ship_x;
+	size_t	ship_y;
 }	t_player;
 
 typedef struct s_game

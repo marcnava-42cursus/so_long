@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:18:43 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:40:53 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	update_player_position(char tile, size_t row, size_t col,
 {
 	if (tile == 'P')
 	{
-		game->player.x = col;
-		game->player.y = row;
+		game->player.ship_x = col;
+		game->player.ship_y = row;
 	}
 }
 

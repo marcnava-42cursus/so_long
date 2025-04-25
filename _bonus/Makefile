@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 16:38:07 by marcnava          #+#    #+#              #
-#    Updated: 2025/04/24 18:34:04 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/25 22:10:43 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,11 @@ GAME_LANG	?=	en-US
 
 SRCSPATH	:=	./src
 BUILD		:=	./build
-UTILS		:=	$(SRCSPATH)/utils
-MAP			:=	$(SRCSPATH)/map_utils
-ERROR		:=	$(SRCSPATH)/error_utils
-RENDER		:=	$(SRCSPATH)/render
+CONTROL		:=	$(SRCSPATH)/control
 HOOKS		:=	$(SRCSPATH)/hooks
+MAP			:=	$(SRCSPATH)/map_utils
+RENDER		:=	$(SRCSPATH)/render
+UTILS		:=	$(SRCSPATH)/utils
 
 HEADERS		:=	-I../includes -I$(LIBMLX)/include -I$(LIBFT)/includes
 
@@ -51,8 +51,16 @@ SRCS		+=	$(MAP)/error_handler_bonus.c \
 SRCS		+=	$(RENDER)/render_map_bonus.c \
 				$(RENDER)/render_baba_map_bonus.c
 
-SRCS		+=	$(UTILS)/exit_game_bonus.c \
+SRCS		+=	$(UTILS)/execute_bonus.c \
+				$(UTILS)/exit_game_bonus.c \
 				$(UTILS)/game_utils_bonus.c
+
+SRCS		+=	$(CONTROL)/block_bonus.c \
+				$(CONTROL)/control_utils_bonus.c \
+				$(CONTROL)/generation_bonus.c \
+				$(CONTROL)/instructions_bonus.c \
+				$(CONTROL)/movement_bonus.c \
+				$(CONTROL)/orientation_bonus.c
 
 SRCS		+=	$(HOOKS)/key_handler_bonus.c
 
@@ -76,7 +84,7 @@ $(NAME):		$(OBJS) $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 
 $(BUILD)/%.o: $(SRCSPATH)/%.c
 				@mkdir -p $(dir $@)
-				@$(CC) $(CFLAGS) -D LANG=\"$(GAME_LANG)\" -o $@ -c $< $(HEADERS)
+				$(CC) $(CFLAGS) -D LANG=\"$(GAME_LANG)\" -o $@ -c $< $(HEADERS)
 
 clean:
 				@$(RM) $(BUILD)

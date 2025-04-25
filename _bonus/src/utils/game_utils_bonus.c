@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:44:29 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/25 03:27:55 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/26 01:48:58 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ static int	allocate_image_map(t_map *map)
 {
 	size_t	i;
 
-	map->image_map = ft_calloc(map->height, sizeof(mlx_image_t **));
-	if (!map->image_map)
+	map->ship_image_map = ft_calloc(map->height, sizeof(mlx_image_t **));
+	if (!map->ship_image_map)
 		return (0);
 	i = 0;
 	while (i < map->height)
 	{
-		map->image_map[i] = ft_calloc(map->width, sizeof(mlx_image_t *));
-		if (!map->image_map[i])
+		map->ship_image_map[i] = ft_calloc(map->width, sizeof(mlx_image_t *));
+		if (!map->ship_image_map[i])
 		{
 			while (i > 0)
 			{
 				i--;
-				ft_free((void **)&map->image_map[i]);
+				ft_free((void **)&map->ship_image_map[i]);
 			}
-			ft_free((void **)&map->image_map);
+			ft_free((void **)&map->ship_image_map);
 			return (0);
 		}
 		i++;
@@ -74,7 +74,11 @@ size_t	init_game(t_game *game, char *map_path)
 		cleanup_and_exit(game);
 	if (!allocate_baba_image_map(game->map))
 		cleanup_and_exit(game);
-	game->moves = 0;
+	game->instructions = ft_calloc(1024, sizeof(char));
+	game->player.facing = 'n';
 	game->prev_baba_tile = '0';
+	game->moves = 0;
+	game->running = 0;
+	game->instruction_index = 0;
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/04/24 02:26:18 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/25 17:15:03 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,5 +84,5 @@ re:				fclean all
 .PHONY:		re
 
 bonus:			libmlx $(LIBFT)/libft.a
-				@make --no-print-directory -s -C _bonus/ all
+				make --no-print-directory -C _bonus/ all
 .PHONY:		bonus

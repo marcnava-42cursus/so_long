@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 19:33:01 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 16:05:22 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**clone_map(char **map, int height)
 
 int	clone_map_and_check(t_map *map, char ***map_copy)
 {
-	*map_copy = clone_map(map->map, map->height);
+	*map_copy = clone_map(map->ship_map, map->height);
 	if (!(*map_copy))
 	{
 		ft_printf("Error: Failed to allocate memory for map check\n");

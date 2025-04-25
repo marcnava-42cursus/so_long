@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 16:41:52 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ size_t	parse_map(t_game *game, char *map_path)
 		return (EXIT_FAILURE);
 	}
 
-	map->map = temp_map;
+	map->ship_map = temp_map;
 	map->height = lines_read;
 	map->width = ft_strlen(temp_map[0]);
 
@@ -135,7 +135,7 @@ size_t	parse_map(t_game *game, char *map_path)
 
 	if (!validate_map(map))
 	{
-		ft_free_matrix((void **)map->map);
+		ft_free_matrix((void **)map->ship_map);
 		free(map);
 		close(fd);
 		return (EXIT_FAILURE);

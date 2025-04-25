@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:36:44 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static int	find_player_and_fill_map(char **map_copy, t_map *map)
 	while (y < map->height)
 	{
 		x = 0;
-		while (map->map[y][x])
+		while (map->ship_map[y][x])
 		{
-			if (map->map[y][x] == 'P')
+			if (map->ship_map[y][x] == 'P')
 			{
 				flood_fill(map_copy, x, y);
 				return (1);

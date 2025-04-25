@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 20:18:43 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:28:44 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_map(t_game *game)
 		col = 0;
 		while (col < game->map->width)
 		{
-			tile = game->map->map[row][col];
+			tile = game->map->ship_map[row][col];
 			update_player_position(tile, row, col, game);
 			img = get_image_for_tile(tile, game);
 			mlx_image_to_window(game->mlx, img, col * TILE_SIZE,
@@ -65,7 +65,7 @@ void	draw_tile(t_game *game, size_t row, size_t col)
 	mlx_image_t	*img;
 	char		tile;
 
-	tile = game->map->map[row][col];
+	tile = game->map->ship_map[row][col];
 	img = get_image_for_tile(tile, game);
 	mlx_image_to_window(game->mlx, img, col * TILE_SIZE, row * TILE_SIZE);
 }

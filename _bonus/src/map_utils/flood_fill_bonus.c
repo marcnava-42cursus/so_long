@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 16:03:29 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	find_player_and_fill_map(char **map_copy, t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->map[y][x] == 'P')
+			if (map->ship_map[y][x] == 'P')
 			{
 				flood_fill(map_copy, (int)x, (int)y);
 				return (1);
@@ -63,9 +63,9 @@ static int	check_reachable_items(char **map_copy, t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (map->map[y][x] == 'C' && map_copy[y][x] != 'V')
+			if (map->ship_map[y][x] == 'C' && map_copy[y][x] != 'V')
 				found_c = 1;
-			if (map->map[y][x] == 'E' && map_copy[y][x] != 'V')
+			if (map->ship_map[y][x] == 'E' && map_copy[y][x] != 'V')
 				found_e = 1;
 			x++;
 		}

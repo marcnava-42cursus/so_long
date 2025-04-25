@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 20:00:53 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/06 19:22:03 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	cleanup_map(t_game *game)
 {
-	ft_free_matrix((void **)game->map->map);
+	ft_free_matrix((void **)game->map->ship_map);
 	ft_free((void **)&game->map);
 }
 

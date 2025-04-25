@@ -6,13 +6,13 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:52:20 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 20:23:29 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 20:15:04 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char)
+void	*draw_baba_cell(t_game *game, size_t col, size_t row, char tile_char)
 {
 	char		*path;
 	xpm_t		*xpm;
@@ -20,27 +20,21 @@ void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char)
 
 	path = build_texture_path(tile_char);
 	if (!path)
-		return ;
+		return (NULL);
 	xpm = mlx_load_xpm42(path);
 	ft_free((void **)&path);
 	if (!xpm)
-		return ;
+		return (NULL);
 	img = mlx_texture_to_image(game->mlx, &xpm->texture);
 	if (!img)
-	{
-		mlx_delete_xpm42(xpm);
-		return ;
-	}
+		return (mlx_delete_xpm42(xpm), NULL);
+	ft_printf("w-h: %d-%d\n", game->map->width, game->map->height);
 	game->map->baba_image_map[row][col] = img;
-	if (mlx_image_to_window(game->mlx,
-			img,
-			col * TILE_SIZE,
+	if (mlx_image_to_window(game->mlx, img, col * TILE_SIZE,
 			game->map->height * TILE_SIZE + row * TILE_SIZE) < 0)
-	{
-		mlx_delete_xpm42(xpm);
-		return ;
-	}
+		return (mlx_delete_xpm42(xpm), NULL);
 	mlx_delete_xpm42(xpm);
+	return ((void *)1);
 }
 
 void	render_baba(t_game *game)
@@ -73,8 +67,9 @@ void	render_baba(t_game *game)
 				tile_char = '3';
 			else
 				tile_char = '8';
-			draw_baba_tile(game, col, row, tile_char);
+			ft_printf("row-col: %d-%d\n", row, col);
 			game->map->baba_map[row][col] = tile_char;
+			draw_baba_cell(game, col, row, tile_char);
 			col++;
 		}
 		row++;

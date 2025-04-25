@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 20:15:13 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 02:41:52 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 19:07:25 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	*draw_cell(t_game *game, size_t row, size_t col)
 	char		*path;
 	char		c;
 
-	c = game->map->map[row][col];
+	c = game->map->ship_map[row][col];
 	path = build_texture_path(c);
 	if (!path)
 		return (NULL);

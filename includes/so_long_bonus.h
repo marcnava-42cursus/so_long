@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:49:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 18:57:20 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 20:04:12 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 typedef struct s_map
 {
 	mlx_image_t	***image_map;
-	char		**map;
+	char		**ship_map;
 	mlx_image_t	***baba_image_map;
 	char		**baba_map;
 	size_t		width;
@@ -75,7 +75,7 @@ void	cleanup_and_exit(t_game *game);
 void	render_map(t_game *game);
 void	render_baba(t_game *game);
 char	*build_texture_path(char c);
-void	draw_baba_tile(t_game *game, size_t col, size_t row, char tile_char);
+void	*draw_baba_cell(t_game *game, size_t col, size_t row, char tile_char);
 
 // hooks
 

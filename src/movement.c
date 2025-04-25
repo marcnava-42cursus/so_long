@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 22:20:53 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 17:44:38 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_coins(t_game *game)
 		col = 0;
 		while (col < game->map->width)
 		{
-			if (game->map->map[row][col] == 'C')
+			if (game->map->ship_map[row][col] == 'C')
 				return (1);
 			col++;
 		}
@@ -39,17 +39,17 @@ static int	move_player(t_game *game, size_t dx, size_t dy)
 
 	new_x = game->player.x + dx;
 	new_y = game->player.y + dy;
-	if (game->map->map[new_y][new_x] == '1')
+	if (game->map->ship_map[new_y][new_x] == '1')
 		return (0);
-	if (game->map->map[new_y][new_x] == 'E')
+	if (game->map->ship_map[new_y][new_x] == 'E')
 	{
 		if (check_coins(game))
 			return (0);
 		mlx_close_window(game->mlx);
 	}
-	game->map->map[game->player.y][game->player.x] = '0';
+	game->map->ship_map[game->player.y][game->player.x] = '0';
 	draw_tile(game, game->player.y, game->player.x);
-	game->map->map[new_y][new_x] = 'P';
+	game->map->ship_map[new_y][new_x] = 'P';
 	game->player.x = new_x;
 	game->player.y = new_y;
 	draw_tile(game, new_y, new_x);

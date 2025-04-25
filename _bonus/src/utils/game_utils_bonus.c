@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:44:29 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 20:17:11 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/25 03:27:55 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static int	allocate_baba_image_map(t_map *map)
 {
 	size_t	i;
 
-	map->baba_image_map = ft_calloc(map->height, sizeof(mlx_image_t **));
+	map->baba_image_map = ft_calloc(7, sizeof(mlx_image_t **));
 	if (!map->baba_image_map)
 		return (0);
 	i = 0;
-	while (i < map->height)
+	while (i < 7)
 	{
 		map->baba_image_map[i] = ft_calloc(map->width, sizeof(mlx_image_t *));
 		if (!map->baba_image_map[i])

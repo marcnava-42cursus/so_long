@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:59:49 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 02:40:58 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/25 03:22:37 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	cleanup_map(t_game *game)
 	if (game->map->baba_image_map)
 	{
 		i = 0;
-		while (i < game->map->height)
+		while (i < 7)
 		{
 			if (game->map->baba_image_map[i])
 				ft_free((void **)&game->map->baba_image_map[i]);
@@ -39,9 +39,9 @@ static void	cleanup_map(t_game *game)
 		ft_free((void **)&game->map->baba_image_map);
 	}
 	if (game->map->baba_map)
-		ft_free((void **)&game->map->baba_map);
-	if (game->map->map)
-		ft_free_matrix((void **)game->map->map);
+		ft_free_matrix((void **)game->map->baba_map);
+	if (game->map->ship_map)
+		ft_free_matrix((void **)game->map->ship_map);
 	ft_free((void **)&game->map);
 }
 

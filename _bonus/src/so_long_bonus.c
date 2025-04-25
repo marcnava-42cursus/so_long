@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:19:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/23 16:42:17 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	render_map(&game);
 	render_baba(&game);
-	print_map(game.map->map);
+	print_map(game.map->ship_map);
 	print_map(game.map->baba_map);
 	mlx_key_hook(game.mlx, &key_pressed_handler, &game);
 	mlx_loop(game.mlx);

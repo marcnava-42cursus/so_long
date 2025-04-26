@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/25 04:57:19 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:48:15 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	check_min_width(t_map *map)
 	map->width = 7;
 	return (1);
 }
-
 
 static int	validate_map(t_map *map)
 {
@@ -143,10 +142,8 @@ size_t	parse_map(t_game *game, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf("Error: Failed to open map file\n"), EXIT_FAILURE);
-
 	if (allocate_map_memory(&map, &temp_map, fd) == 1)
 		return (ft_printf("Error: Failed to allocate memory\n"), EXIT_FAILURE);
-
 	lines_read = read_map_lines(fd, temp_map);
 	if (lines_read == 1)
 	{
@@ -154,13 +151,10 @@ size_t	parse_map(t_game *game, char *map_path)
 		close(fd);
 		return (EXIT_FAILURE);
 	}
-
 	map->ship_map = temp_map;
 	map->height = lines_read;
 	map->width = ft_strlen(temp_map[0]);
-
 	allocate_baba_map_memory(map);
-
 	if (!validate_map(map))
 	{
 		ft_free_matrix((void **)map->ship_map);
@@ -168,7 +162,6 @@ size_t	parse_map(t_game *game, char *map_path)
 		close(fd);
 		return (EXIT_FAILURE);
 	}
-
 	game->map = map;
 	close(fd);
 	return (EXIT_SUCCESS);

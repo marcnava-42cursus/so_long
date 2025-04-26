@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:00:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,12 @@ static int	check_reachable_items(char **map_copy, t_map *map)
 		y++;
 	}
 	if (found_c || found_e)
-	{
-		ft_printf("Error: Not all collectibles or exit are reachable\n");
-		return (0);
-	}
+		return (ft_printf(
+				"Error: Not all collectibles or exit are reachable\n"), 0);
 	return (1);
 }
 
-int		check_valid_path(t_map *map)
+int	check_valid_path(t_map *map)
 {
 	char	**map_copy;
 
@@ -99,4 +97,3 @@ int		check_valid_path(t_map *map)
 	ft_free_matrix((void **)map_copy);
 	return (1);
 }
-

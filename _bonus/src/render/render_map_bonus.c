@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 20:15:13 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 01:48:58 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:54:02 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*draw_cell(t_game *game, size_t row, size_t col)
 	if (!game->map->ship_image_map[row][col])
 		return (NULL);
 	if (mlx_image_to_window(game->mlx, game->map->ship_image_map[row][col],
-			col * TILE_SIZE, row * TILE_SIZE) < 0)
+		col * TILE_SIZE, row * TILE_SIZE) < 0)
 		return (NULL);
 	return ((void *)1);
 }

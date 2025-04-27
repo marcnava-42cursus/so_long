@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:59:49 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 01:48:58 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 07:23:40 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,20 @@ static void	cleanup_map(t_game *game)
 	}
 	if (game->map->baba_map)
 		ft_free_matrix((void **)game->map->baba_map);
+
+	/* Liberamos todas las filas de ship_map, no sólo las usadas */
 	if (game->map->ship_map)
-		ft_free_matrix((void **)game->map->ship_map);
+	{
+		i = 0;
+		while (i < MAX_MAP_SIZE)
+		{
+			if (game->map->ship_map[i])
+				ft_free((void **)&game->map->ship_map[i]);
+			i++;
+		}
+		ft_free((void **)&game->map->ship_map);
+	}
+
 	ft_free((void **)&game->map);
 }
 

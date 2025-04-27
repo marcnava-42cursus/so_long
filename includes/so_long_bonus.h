@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:49:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 21:26:44 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 07:07:23 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define KEY_NUMPAD_4 324
 # define KEY_NUMPAD_6 326
 # define KEY_NUMPAD_8 328
+
+# define MAX_MAP_SIZE 1024
 
 typedef struct s_map
 {

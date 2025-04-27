@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/27 07:29:54 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 07:48:54 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,41 @@ static int	validate_map(t_map *map)
 static void	allocate_baba_map_memory(t_map *map)
 {
 	size_t	y;
+	size_t	width_to_use;
 
+	/* Decido el ancho real que voy a necesitar: 
+	   si el mapa original es menor que 7, usaré 7 */
+	width_to_use = map->width;
+	if (width_to_use < 7)
+		width_to_use = 7;
+
+	/* Reservo un array de 8 punteros (7 filas + NULL terminador) */
 	map->baba_map = ft_calloc(7 + 1, sizeof(char *));
 	if (!map->baba_map)
 	{
 		ft_printf("Error: Malloc baba_map failed\n");
 		exit(EXIT_FAILURE);
 	}
+
+	/* Para cada una de las 7 filas, reservo width_to_use+1 bytes */
 	y = 0;
 	while (y < 7)
 	{
-		map->baba_map[y] = ft_calloc(map->width + 1, sizeof(char));
+		map->baba_map[y] = ft_calloc(width_to_use + 1, sizeof(char));
 		if (!map->baba_map[y])
 		{
 			ft_printf("Error: Malloc baba_map row failed\n");
 			exit(EXIT_FAILURE);
 		}
+		/* Aseguro el terminador de cadena justo al final */
+		map->baba_map[y][width_to_use] = '\0';
 		y++;
 	}
+
+	/* Marco el fin del array de filas */
 	map->baba_map[7] = NULL;
 }
+
 
 static int	allocate_map_memory(t_map **map, char ***temp_map,
 				size_t max_lines)

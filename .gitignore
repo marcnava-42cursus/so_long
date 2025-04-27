@@ -7,7 +7,5 @@ mokup/
 *.o
 *.out
 *.log
-*.py
-*.sh
 
 so_long

@@ -17,7 +17,7 @@ NAME		:=	so_long
 CC			:=	cc
 RM			:=	rm -rf
 
-CFLAGS		:=	-Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS		:=	-Wextra -Wall -Werror -g3
 COMPILER	:=	$(CC) $(CFLAGS)
 
 LIBFT		:=	./libs/libft

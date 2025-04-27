@@ -49,13 +49,16 @@ static void	restore_previous(t_game *game, int ox, int oy)
 	char	restore;
 
 	prev = game->prev_baba_tile;
-	if (prev == '0')
-		prev = '8';
-	else if (prev == '2' || prev == '3' || prev == 'a'
-		|| (prev >= '4' && prev <= '7'))
+	/* por defecto restauramos suelo '8' */
+	restore = '8';
+	/* si prev era un tile válido distinto de '0', lo restauramos */
+	if (prev == '2'
+	 || prev == '3'
+	 || prev == 'a'
+	 || (prev >= '4' && prev <= '7'))
+	{
 		restore = prev;
-	else
-		restore = '8';
+	}
 	draw_tile(game, ox, oy, restore);
 }
 

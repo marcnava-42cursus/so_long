@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 20:15:13 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 21:54:02 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:54:56 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	*draw_cell(t_game *game, size_t row, size_t col)
 		game->player.ship_x = col;
 		game->player.ship_y = row;
 	}
-	game->map->ship_image_map[row][col] = mlx_texture_to_image(game->mlx, &xpm->texture);
+	game->map->ship_image_map[row][col] = mlx_texture_to_image(game->mlx,
+			&xpm->texture);
 	mlx_delete_xpm42(xpm);
 	if (!game->map->ship_image_map[row][col])
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/27 07:48:54 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:51:22 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,6 @@ static int	check_min_width(t_map *map)
 	return (1);
 }
 
-// if (map->width >= 7)
-//     return (1);
-// old_width = map->width;
-// map->width = 7;
-// i = 0;
-// while (i < map->height)
-// {
-//     new_row = ft_calloc(7 + 1, sizeof(char));
-//     ft_memcpy(new_row, map->ship_map[i], old_width);
-//     ft_memset(new_row + old_width, '0', 7 - old_width);
-//     ft_free((void **)&map->ship_map[i]);
-//     map->ship_map[i] = new_row;
-//     i++;
-// }
-
 static int	validate_map(t_map *map)
 {
 	int	p_count;
@@ -81,21 +66,15 @@ static void	allocate_baba_map_memory(t_map *map)
 	size_t	y;
 	size_t	width_to_use;
 
-	/* Decido el ancho real que voy a necesitar: 
-	   si el mapa original es menor que 7, usaré 7 */
 	width_to_use = map->width;
 	if (width_to_use < 7)
 		width_to_use = 7;
-
-	/* Reservo un array de 8 punteros (7 filas + NULL terminador) */
 	map->baba_map = ft_calloc(7 + 1, sizeof(char *));
 	if (!map->baba_map)
 	{
 		ft_printf("Error: Malloc baba_map failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	/* Para cada una de las 7 filas, reservo width_to_use+1 bytes */
 	y = 0;
 	while (y < 7)
 	{
@@ -105,15 +84,11 @@ static void	allocate_baba_map_memory(t_map *map)
 			ft_printf("Error: Malloc baba_map row failed\n");
 			exit(EXIT_FAILURE);
 		}
-		/* Aseguro el terminador de cadena justo al final */
 		map->baba_map[y][width_to_use] = '\0';
 		y++;
 	}
-
-	/* Marco el fin del array de filas */
 	map->baba_map[7] = NULL;
 }
-
 
 static int	allocate_map_memory(t_map **map, char ***temp_map,
 				size_t max_lines)
@@ -132,7 +107,6 @@ static int	allocate_map_memory(t_map **map, char ***temp_map,
 	return (EXIT_SUCCESS);
 }
 
-/* Aquí es donde creamos cada fila real, sólo para las líneas leídas. */
 static int	read_map_lines(int fd, char **temp_map)
 {
 	char	*line;
@@ -186,39 +160,20 @@ size_t	parse_map(t_game *game, char *map_path)
 	if (fd == -1)
 		return (ft_printf("Error: Failed to open map file\n"),
 			EXIT_FAILURE);
-
-	/* Reservamos espacio para temp_map y cada fila */
 	if (allocate_map_memory(&map, &temp_map, MAX_MAP_SIZE) == EXIT_FAILURE)
-	{
-		close(fd);
-		return (EXIT_FAILURE);
-	}
-
-	/* Leemos líneas dentro de esos buffers */
+		return (close(fd), EXIT_FAILURE);
 	lines_read = read_map_lines(fd, temp_map);
 	close(fd);
 	if (lines_read == EXIT_FAILURE || lines_read == 1)
-	{
-		ft_free((void **)&map);
-		ft_free_matrix((void **)temp_map);
-		return (EXIT_FAILURE);
-	}
-
-	/* Asociamos el array y ponemos un NULL de centinela */
+		return (ft_free((void **)&map), ft_free_matrix((void **)temp_map),
+			EXIT_FAILURE);
 	map->ship_map = temp_map;
 	map->ship_map[lines_read] = NULL;
-
 	map->height = lines_read;
 	map->width = ft_strlen(temp_map[0]);
-
 	allocate_baba_map_memory(map);
 	if (!validate_map(map))
-	{
-		ft_free_matrix((void **)map->ship_map);
-		free(map);
-		return (EXIT_FAILURE);
-	}
-
-	game->map = map;
-	return (EXIT_SUCCESS);
+		return (ft_free_matrix((void **)map->ship_map),
+			ft_free((void **)&map), EXIT_FAILURE);
+	return (game->map = map, EXIT_SUCCESS);
 }

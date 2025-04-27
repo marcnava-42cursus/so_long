@@ -6,20 +6,22 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:00:44 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 23:35:51 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:22:48 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void step_instruction(void *param)
+void	step_instruction(void *param)
 {
-	t_game *game = (t_game *)param;
-	float dt = game->mlx->delta_time;
+	t_game	*game;
+	float	dt;
+	char	cmd;
 
+	game = (t_game *)param;
+	dt = game->mlx->delta_time;
 	if (!game->running)
-		return;
-
+		return ;
 	game->instruction_timer += dt;
 	while (game->instruction_timer >= game->speed)
 	{
@@ -27,10 +29,9 @@ void step_instruction(void *param)
 		if (game->instruction_index >= (int)ft_strlen(game->instructions))
 		{
 			game->running = 0;
-			ft_printf("\nAll instructions executed\n");
-			return;
+			ft_printf("All instructions executed\n");
 		}
-		char cmd = game->instructions[game->instruction_index++];
+		cmd = game->instructions[game->instruction_index++];
 		ft_printf("Instruction: %c\n", cmd);
 		if (cmd == 'u')
 			move_ship_forward(game);
@@ -43,7 +44,7 @@ void step_instruction(void *param)
 	}
 }
 
-void	key_pressed_handler(mlx_key_data_t kd, void *param)
+static void	key_pressed_handler(mlx_key_data_t kd, void *param)
 {
 	t_game	*game;
 
@@ -70,4 +71,10 @@ void	key_pressed_handler(mlx_key_data_t kd, void *param)
 			|| kd.key == MLX_KEY_L || kd.key == KEY_NUMPAD_6)
 			move_baba(game, 1, 0);
 	}
+}
+
+void	handle_key(mlx_key_data_t kd, void *param)
+{
+	debug_instructions(kd, param);
+	key_pressed_handler(kd, param);
 }

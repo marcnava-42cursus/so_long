@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 18:05:23 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 22:57:47 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:21:53 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,25 @@ static int	check_coins(t_game *game)
 	return (0);
 }
 
-static int	move_ship(t_game *game, int dx, int dy)
+static int	check_boundaries(t_game *game, int x, int y)
 {
-	int		cur_x;
-	int		cur_y;
-	int		new_x;
-	int		new_y;
-	int		width;
-	int		height;
-	char	dest;
+	int	width;
+	int	height;
 
-	cur_x = (int) game->player.ship_x;
-	cur_y = (int) game->player.ship_y;
-	new_x = cur_x + dx;
-	new_y = cur_y + dy;
 	width = (int) game->map->width;
 	height = (int) game->map->height;
-	if (new_x < 0 || new_x >= width || new_y < 0 || new_y >= height)
-		return (ft_printf("You cannot move outside the map boundaries\n"), 0);
+	if (x < 0 || x >= width || y < 0 || y >= height)
+	{
+		ft_printf("You cannot move outside the map boundaries\n");
+		return (0);
+	}
+	return (1);
+}
+
+static int	handle_destination(t_game *game, int new_x, int new_y)
+{
+	char	dest;
+
 	dest = game->map->ship_map[new_y][new_x];
 	if (dest == '1')
 		return (0);
@@ -59,15 +60,44 @@ static int	move_ship(t_game *game, int dx, int dy)
 			return (0);
 		mlx_close_window(game->mlx);
 	}
+	return (1);
+}
+
+static void	perform_move(t_game *game, int cur_x, int cur_y,
+		int new_x, int new_y)
+{
 	game->map->ship_map[cur_y][cur_x] = '0';
 	draw_cell(game, cur_y, cur_x);
 	game->map->ship_map[new_y][new_x] = 'P';
 	game->player.ship_x = (size_t) new_x;
 	game->player.ship_y = (size_t) new_y;
 	draw_cell(game, new_y, new_x);
+}
+
+static int	finalize_move(t_game *game)
+{
 	game->moves++;
 	ft_printf("Moves: %d\n", game->moves);
 	return (1);
+}
+
+int	move_ship(t_game *game, int dx, int dy)
+{
+	int	cur_x;
+	int	cur_y;
+	int	new_x;
+	int	new_y;
+
+	cur_x = (int) game->player.ship_x;
+	cur_y = (int) game->player.ship_y;
+	new_x = cur_x + dx;
+	new_y = cur_y + dy;
+	if (check_boundaries(game, new_x, new_y) == 0)
+		return (0);
+	if (handle_destination(game, new_x, new_y) == 0)
+		return (0);
+	perform_move(game, cur_x, cur_y, new_x, new_y);
+	return (finalize_move(game));
 }
 
 void	move_ship_forward(t_game *game)

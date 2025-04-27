@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:49:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/27 07:07:23 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:13:39 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	add_instruction(t_game *game, char tile);
 void	remove_instruction(t_game *game);
 void	generate_block(t_game *game, int y, int x, char tile);
 
-
 int		in_bounds(t_game *game, int x, int y);
 void	clear_cell(t_game *game, int x, int y);
 void	draw_tile(t_game *game, int x, int y, char tile);
@@ -102,6 +101,8 @@ int		can_ship_move(t_game *game, int x, int y);
 void	step_instruction(void *param);
 void	move_ship_forward(t_game *game);
 
+void	debug_instructions(mlx_key_data_t kd, void *param);
+
 // render	
 
 void	render_map(t_game *game);
@@ -111,6 +112,6 @@ void	*draw_baba_cell(t_game *game, size_t col, size_t row, char tile_char);
 
 // hooks
 
-void	key_pressed_handler(mlx_key_data_t keydata, void *param);
+void	handle_key(mlx_key_data_t kd, void *param);
 
 #endif

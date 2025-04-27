@@ -7,7 +7,6 @@ mokup/
 *.o
 *.out
 *.log
-*.supp
 *.py
 *.sh
 

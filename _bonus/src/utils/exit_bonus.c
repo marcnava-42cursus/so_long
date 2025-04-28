@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_game_bonus.c                                  :+:      :+:    :+:   */
+/*   exit_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:59:49 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 05:32:25 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:10:41 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static void	free_image_map(void **map, size_t count)
+void	free_image_map(void **map, size_t count)
 {
 	size_t	i;
 
@@ -28,7 +28,7 @@ static void	free_image_map(void **map, size_t count)
 	ft_free((void **)&map);
 }
 
-static void	cleanup_map(t_game *game)
+void	cleanup_map(t_game *game)
 {
 	if (game->map->ship_image_map)
 		free_image_map((void **)game->map->ship_image_map,

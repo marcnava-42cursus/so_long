@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_baba_map_bonus.c                            :+:      :+:    :+:   */
+/*   baba_renderer_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 19:52:20 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 05:10:29 by marcnava         ###   ########.fr       */
+/*   Created: 2025/04/28 08:31:00 by marcnava          #+#    #+#             */
+/*   Updated: 2025/04/28 19:02:07 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	*draw_baba_cell(t_game *game, size_t col, size_t row, char tile_char)
-{
-	char		*path;
-	xpm_t		*xpm;
-	mlx_image_t	*img;
-
-	path = build_texture_path(tile_char);
-	if (!path)
-		return (NULL);
-	xpm = mlx_load_xpm42(path);
-	ft_free((void **)&path);
-	if (!xpm)
-		return (NULL);
-	img = mlx_texture_to_image(game->mlx, &xpm->texture);
-	if (!img)
-		return (mlx_delete_xpm42(xpm), NULL);
-	game->map->baba_image_map[row][col] = img;
-	if (mlx_image_to_window(game->mlx, img, col * TILE_SIZE,
-			game->map->height * TILE_SIZE + row * TILE_SIZE) < 0)
-		return (mlx_delete_xpm42(xpm), NULL);
-	mlx_delete_xpm42(xpm);
-	return ((void *)1);
-}
-
-static char	compute_baba_tile(t_game *game, size_t row, size_t col)
+char	compute_baba_tile(t_game *game, size_t row, size_t col)
 {
 	char	tile_char;
 	size_t	width;
@@ -63,7 +39,7 @@ static char	compute_baba_tile(t_game *game, size_t row, size_t col)
 	return (tile_char);
 }
 
-static void	render_baba_cell(t_game *game, size_t row, size_t col)
+void	render_baba_cell(t_game *game, size_t row, size_t col)
 {
 	char	tile_char;
 
@@ -88,4 +64,28 @@ void	render_baba(t_game *game)
 		}
 		row++;
 	}
+}
+
+void	*draw_baba_cell(t_game *game, size_t col, size_t row, char tile_char)
+{
+	char		*path;
+	xpm_t		*xpm;
+	mlx_image_t	*img;
+
+	path = build_texture_path(tile_char);
+	if (!path)
+		return (NULL);
+	xpm = mlx_load_xpm42(path);
+	ft_free((void **)&path);
+	if (!xpm)
+		return (NULL);
+	img = mlx_texture_to_image(game->mlx, &xpm->texture);
+	if (!img)
+		return (mlx_delete_xpm42(xpm), NULL);
+	game->map->baba_image_map[row][col] = img;
+	if (mlx_image_to_window(game->mlx, img, col * TILE_SIZE,
+			game->map->height * TILE_SIZE + row * TILE_SIZE) < 0)
+		return (mlx_delete_xpm42(xpm), NULL);
+	mlx_delete_xpm42(xpm);
+	return ((void *)1);
 }

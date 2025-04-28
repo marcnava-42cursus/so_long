@@ -6,13 +6,13 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 16:15:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/27 17:22:26 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:09:54 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static int	is_debug_key(keys_t key)
+int	is_debug_key(keys_t key)
 {
 	if (key == MLX_KEY_U || key == MLX_KEY_L
 		|| key == MLX_KEY_R || key == MLX_KEY_B)
@@ -20,7 +20,7 @@ static int	is_debug_key(keys_t key)
 	return (0);
 }
 
-static void	append_instruction_char(char *instr, char c)
+void	append_instruction_char(char *instr, char c)
 {
 	size_t	len;
 
@@ -32,7 +32,7 @@ static void	append_instruction_char(char *instr, char c)
 	}
 }
 
-static void	handle_backspace(char *instr)
+void	handle_backspace(char *instr)
 {
 	size_t	len;
 
@@ -41,7 +41,7 @@ static void	handle_backspace(char *instr)
 		instr[len - 1] = '\0';
 }
 
-static void	process_debug_key(mlx_key_data_t kd, t_game *game)
+void	process_debug_key(mlx_key_data_t kd, t_game *game)
 {
 	char	c;
 

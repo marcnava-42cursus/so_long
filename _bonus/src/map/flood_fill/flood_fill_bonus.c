@@ -6,13 +6,13 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 22:00:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:46:27 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static void	flood_fill(char **map, int x, int y)
+void	flood_fill(char **map, int x, int y)
 {
 	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == '1')
 		return ;
@@ -25,7 +25,7 @@ static void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x, y - 1);
 }
 
-static int	find_player_and_fill_map(char **map_copy, t_map *map)
+int	find_player_and_fill_map(char **map_copy, t_map *map)
 {
 	size_t	y;
 	size_t	x;
@@ -48,7 +48,7 @@ static int	find_player_and_fill_map(char **map_copy, t_map *map)
 	return (0);
 }
 
-static int	check_reachable_items(char **map_copy, t_map *map)
+int	check_reachable_items(char **map_copy, t_map *map)
 {
 	size_t	y;
 	size_t	x;

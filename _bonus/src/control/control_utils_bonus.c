@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 21:09:41 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 21:27:36 by marcnava         ###   ########.fr       */
+/*   Created: 2025/04/28 08:41:40 by marcnava          #+#    #+#             */
+/*   Updated: 2025/04/28 09:53:55 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
+//! DEPRECATED
 int	can_ship_move(t_game *game, int x, int y)
 {
 	int	width;
@@ -56,35 +57,4 @@ void	draw_tile(t_game *game, int x, int y, char tile)
 	game->map->baba_map[y][x] = tile;
 	clear_cell(game, x, y);
 	draw_baba_cell(game, x, y, tile);
-}
-
-int	is_generator(char tile)
-{
-	if (tile >= '4' && tile <= '7')
-		return (1);
-	return (0);
-}
-
-int	is_pushable(char tile)
-{
-	if (tile == 'l')
-		return (1);
-	if (tile == 'r')
-		return (1);
-	if (tile == 'u')
-		return (1);
-	if (tile == 'b')
-		return (1);
-	return (0);
-}
-
-char	door_for(char tile)
-{
-	if (tile == '4')
-		return ('l');
-	if (tile == '5')
-		return ('r');
-	if (tile == '6')
-		return ('u');
-	return ('b');
 }

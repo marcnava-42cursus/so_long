@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_utils_bonus.c                                 :+:      :+:    :+:   */
+/*   init_game_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:44:29 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 05:19:39 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:11:18 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-static int	allocate_image_map(t_map *map)
+int	allocate_image_map(t_map *map)
 {
 	size_t	i;
 
@@ -38,7 +38,7 @@ static int	allocate_image_map(t_map *map)
 	return (1);
 }
 
-static int	allocate_baba_image_map(t_map *map)
+int	allocate_baba_image_map(t_map *map)
 {
 	size_t	i;
 

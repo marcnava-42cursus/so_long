@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 18:46:27 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:05:21 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	flood_fill(char **map, int x, int y)
 {
-	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == '1')
+	if (x < 0 || y < 0 || !map[y] || !map[y][x]
+		|| map[y][x] == '1' || map[y][x] == 'E')
 		return ;
 	if (map[y][x] == 'V')
 		return ;
@@ -72,8 +73,7 @@ int	check_reachable_items(char **map_copy, t_map *map)
 		y++;
 	}
 	if (found_c || found_e)
-		return (ft_printf(
-				"Error: Not all collectibles or exit are reachable\n"), 0);
+		return (0);
 	return (1);
 }
 

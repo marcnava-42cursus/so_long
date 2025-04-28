@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:06:57 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	flood_fill(char **map, int x, int y)
 {
-	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == '1')
+	if (x < 0 || y < 0 || !map[y] || !map[y][x]
+		|| map[y][x] == '1' || map[y][x] == 'E')
 		return ;
 	if (map[y][x] == 'V')
 		return ;

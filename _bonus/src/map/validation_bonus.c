@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 08:25:24 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 18:43:59 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:05:56 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	validate_map(t_map *map)
 	if (!check_walls(map))
 		return (ft_printf("Error: Map is not surrounded by walls\n"), 0);
 	if (!check_valid_path(map))
-		return (ft_printf("Error: No solvable map\n"), 0);
+		return (ft_printf(
+			"Error: Not all collectibles or exit are reachable\n"), 0);
 	if (!check_min_width(map))
 		return (ft_printf("Error: Cannot add extra chars to map\n"), 0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:15:02 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 07:12:39 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,18 @@ static int	check_walls(t_map *map)
 	j = 0;
 	while (j < map->width)
 	{
-		if (map->ship_map[0][j] != '1' || map->ship_map[map->height - 1][j] != '1')
-		{
-			ft_printf("Error: Map must be enclosed by walls (1)\n");
-			return (0);
-		}
+		if (map->ship_map[0][j] != '1'
+			|| map->ship_map[map->height - 1][j] != '1')
+			return (ft_printf("Error: Map must be enclosed by walls (1)\n"), 0);
 		j++;
 	}
 	i = 0;
 	while (i < map->height)
 	{
-		if (map->ship_map[i][0] != '1' || map->ship_map[i][map->width - 1] != '1')
-		{
-			ft_printf("Error: Map must be enclosed by walls (1) at sides\n");
-			return (0);
-		}
+		if (map->ship_map[i][0] != '1' || map->ship_map[i]
+			[map->width - 1] != '1')
+			return (ft_printf(
+					"Error: Map must be enclosed by walls (1) at sides\n"), 0);
 		i++;
 	}
 	return (1);

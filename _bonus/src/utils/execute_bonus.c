@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 18:05:23 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/27 17:21:53 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 05:29:32 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,38 @@ static int	handle_destination(t_game *game, int new_x, int new_y)
 			return (0);
 		mlx_close_window(game->mlx);
 	}
+	if (dest == 'M')
+		mlx_close_window(game->mlx);
 	return (1);
 }
 
-static void	perform_move(t_game *game, int cur_x, int cur_y,
-		int new_x, int new_y)
+char	get_ship_tile(char facing)
 {
+	if (facing == 'n')
+		return (SHIP_NORTH);
+	if (facing == 's')
+		return (SHIP_SOUTH);
+	if (facing == 'w')
+		return (SHIP_WEST);
+	if (facing == 'e')
+		return (SHIP_EAST);
+	return (SHIP_NORTH);
+}
+
+static void	perform_move(t_game *game, int new_x, int new_y)
+{
+	int		cur_x;
+	int		cur_y;
+	char	tile;
+
+	cur_x = (int)game->player.ship_x;
+	cur_y = (int)game->player.ship_y;
+	tile = get_ship_tile(game->player.facing);
 	game->map->ship_map[cur_y][cur_x] = '0';
 	draw_cell(game, cur_y, cur_x);
-	game->map->ship_map[new_y][new_x] = 'P';
-	game->player.ship_x = (size_t) new_x;
-	game->player.ship_y = (size_t) new_y;
+	game->map->ship_map[new_y][new_x] = tile;
+	game->player.ship_x = new_x;
+	game->player.ship_y = new_y;
 	draw_cell(game, new_y, new_x);
 }
 
@@ -83,20 +104,16 @@ static int	finalize_move(t_game *game)
 
 int	move_ship(t_game *game, int dx, int dy)
 {
-	int	cur_x;
-	int	cur_y;
 	int	new_x;
 	int	new_y;
 
-	cur_x = (int) game->player.ship_x;
-	cur_y = (int) game->player.ship_y;
-	new_x = cur_x + dx;
-	new_y = cur_y + dy;
+	new_x = (int)game->player.ship_x + dx;
+	new_y = (int)game->player.ship_y + dy;
 	if (check_boundaries(game, new_x, new_y) == 0)
 		return (0);
 	if (handle_destination(game, new_x, new_y) == 0)
 		return (0);
-	perform_move(game, cur_x, cur_y, new_x, new_y);
+	perform_move(game, new_x, new_y);
 	return (finalize_move(game));
 }
 

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:02:43 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 21:17:30 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 06:59:41 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,10 @@ static void	handle_delete_button(t_game *game, char tile)
 		remove_instruction(game);
 }
 
-static void	handle_push_tile(t_game *game, char tile,
-	int ny, int nx, int dx, int dy)
+static void	handle_push_tile(t_game *game, char tile, int dx, int dy)
 {
 	if (is_pushable(tile))
-		push_block(game, ny, nx, dx, dy);
+		push_block(game, dx, dy);
 }
 
 static void	restore_previous(t_game *game, int ox, int oy)
@@ -49,60 +48,72 @@ static void	restore_previous(t_game *game, int ox, int oy)
 	char	restore;
 
 	prev = game->prev_baba_tile;
-	/* por defecto restauramos suelo '8' */
 	restore = '8';
-	/* si prev era un tile válido distinto de '0', lo restauramos */
-	if (prev == '2'
-	 || prev == '3'
-	 || prev == 'a'
-	 || (prev >= '4' && prev <= '7'))
-	{
+	if (prev == '2' || prev == '3' || prev == 'a'
+		|| (prev >= '4' && prev <= '7'))
 		restore = prev;
-	}
 	draw_tile(game, ox, oy, restore);
 }
 
-static void	maybe_generate(t_game *game, char tile, int ny, int nx)
+static void	maybe_generate(t_game *game, char tile, int nx, int ny)
 {
 	if (is_generator(tile))
-		generate_block(game, ny, nx, tile);
+		generate_block(game, nx, ny, tile);
 }
 
-static void	update_prev_and_draw(t_game *game, char tile, int nx, int ny)
+static char	determine_sprite(int dx, int dy)
+{
+	if (dx == 1 && dy == 0)
+		return (BABA_EAST);
+	if (dx == -1 && dy == 0)
+		return (BABA_WEST);
+	if (dx == 0 && dy == 1)
+		return (BABA_SOUTH);
+	return (BABA_NORTH);
+}
+
+static void	apply_tile_effects(t_game *game, char tile, int dx, int dy)
+{
+	handle_delete_button(game, tile);
+	handle_push_tile(game, tile, dx, dy);
+	restore_previous(game, game->player.baba_x, game->player.baba_y);
+	maybe_generate(game, tile, game->player.baba_x + dx,
+		game->player.baba_y + dy);
+}
+
+static void	update_prev_tile(t_game *game, char tile)
 {
 	if (is_pushable(tile))
 		game->prev_baba_tile = '8';
 	else
 		game->prev_baba_tile = tile;
-	draw_tile(game, nx, ny, 'p');
+}
+
+static void	finalize_move(t_game *game, int nx, int ny, char sprite)
+{
+	draw_tile(game, nx, ny, sprite);
 	game->player.baba_x = nx;
 	game->player.baba_y = ny;
 }
 
 int	move_baba(t_game *game, int dx, int dy)
 {
-	char	tile;
-	int		ox;
-	int		oy;
 	int		nx;
 	int		ny;
-	int		success;
+	char	tile;
+	char	sprite;
 
-	ox = game->player.baba_x;
-	oy = game->player.baba_y;
-	nx = ox + dx;
-	ny = oy + dy;
-	if (can_move(game, nx, ny) == 0)
+	nx = game->player.baba_x + dx;
+	ny = game->player.baba_y + dy;
+	if (!can_move(game, nx, ny))
 		return (0);
 	tile = game->map->baba_map[ny][nx];
-	success = handle_wall(tile);
-	if (success == 0)
+	if (!handle_wall(tile))
 		return (1);
-	handle_delete_button(game, tile);
-	handle_push_tile(game, tile, ny, nx, dx, dy);
-	restore_previous(game, ox, oy);
-	maybe_generate(game, tile, ny, nx);
-	update_prev_and_draw(game, tile, nx, ny);
+	sprite = determine_sprite(dx, dy);
+	apply_tile_effects(game, tile, dx, dy);
+	update_prev_tile(game, tile);
+	finalize_move(game, nx, ny, sprite);
 	if (tile == 'a')
 		execute_instructions(game);
 	return (1);

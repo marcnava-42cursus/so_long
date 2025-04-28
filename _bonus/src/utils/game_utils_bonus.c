@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 18:44:29 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 23:35:47 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 05:19:39 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ size_t	init_game(t_game *game, char *map_path)
 		cleanup_and_exit(game);
 	if (!allocate_baba_image_map(game->map))
 		cleanup_and_exit(game);
-	game->instructions = ft_calloc(1024, sizeof(char));
+	game->instructions = ft_calloc(MAX_MAP_SIZE, sizeof(char));
 	game->player.facing = 'n';
 	game->prev_baba_tile = '8';
 	game->moves = 0;
@@ -82,5 +82,7 @@ size_t	init_game(t_game *game, char *map_path)
 	game->instruction_index = 0;
 	game->instruction_timer = 0.0;
 	game->speed = 0.5;
+	game->moves_image = NULL;
+	game->instr_image = NULL;
 	return (EXIT_SUCCESS);
 }

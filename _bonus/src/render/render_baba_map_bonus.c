@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:52:20 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 21:49:13 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 05:10:29 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,46 @@ void	*draw_baba_cell(t_game *game, size_t col, size_t row, char tile_char)
 	return ((void *)1);
 }
 
+static char	compute_baba_tile(t_game *game, size_t row, size_t col)
+{
+	char	tile_char;
+	size_t	width;
+
+	width = game->map->width;
+	if (col == 0 || col == width - 1 || row == 6)
+		tile_char = '9';
+	else if (col == 1 && row >= 1 && row <= 4)
+		tile_char = row + 3 + '0';
+	else if (col == width - 5 && row == 5)
+	{
+		tile_char = 'p';
+		game->player.baba_x = col;
+		game->player.baba_y = row;
+	}
+	else if (col == width - 4 && row == 5)
+		tile_char = 'a';
+	else if (col == width - 3 && row == 5)
+		tile_char = '2';
+	else if (col == width - 2 && row == 5)
+		tile_char = '3';
+	else
+		tile_char = '8';
+	return (tile_char);
+}
+
+static void	render_baba_cell(t_game *game, size_t row, size_t col)
+{
+	char	tile_char;
+
+	tile_char = compute_baba_tile(game, row, col);
+	game->map->baba_map[row][col] = tile_char;
+	draw_baba_cell(game, col, row, tile_char);
+}
+
 void	render_baba(t_game *game)
 {
 	size_t	row;
 	size_t	col;
-	char	tile_char;
 
 	row = 0;
 	while (row < 7)
@@ -48,26 +83,7 @@ void	render_baba(t_game *game)
 		col = 0;
 		while (col < game->map->width)
 		{
-			if (col == 0 || col == game->map->width - 1 || row == 6)
-				tile_char = '9';
-			else if (col == 1 && (row >= 1 && row <= 4))
-				tile_char = (row + 3) + '0';
-			else if (col == game->map->width - 5 && row == 5)
-			{
-				tile_char = 'p';
-				game->player.baba_x = col;
-				game->player.baba_y = row;
-			}
-			else if (col == game->map->width - 4 && row == 5)
-				tile_char = 'a';
-			else if (col == game->map->width - 3 && row == 5)
-				tile_char = '2';
-			else if (col == game->map->width - 2 && row == 5)
-				tile_char = '3';
-			else
-				tile_char = '8';
-			game->map->baba_map[row][col] = tile_char;
-			draw_baba_cell(game, col, row, tile_char);
+			render_baba_cell(game, row, col);
 			col++;
 		}
 		row++;

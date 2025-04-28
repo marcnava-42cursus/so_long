@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/06 16:38:07 by marcnava          #+#    #+#              #
-#    Updated: 2025/04/27 16:38:14 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/28 01:06:51 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRCS		+=	$(MAP)/error_handler_bonus.c \
 				$(MAP)/parse_map_utils_bonus.c
 
 SRCS		+=	$(RENDER)/render_map_bonus.c \
-				$(RENDER)/render_baba_map_bonus.c
+				$(RENDER)/render_baba_map_bonus.c \
+				$(RENDER)/ui_bonus.c
 
 SRCS		+=	$(UTILS)/debug_bonus.c \
 				$(UTILS)/execute_bonus.c \

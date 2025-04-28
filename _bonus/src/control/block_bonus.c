@@ -6,24 +6,25 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 21:05:39 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/26 21:21:50 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 06:36:40 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-int	push_block(t_game *game, int y, int x, int dx, int dy)
+int	push_block(t_game *game, int dx, int dy)
 {
 	int		bx;
 	int		by;
 	char	tile;
 	char	dest;
 
-	bx = x + dx;
-	by = y + dy;
+	bx = (game->player.baba_x + dx) + dx;
+	by = (game->player.baba_y + dy) + dy;
 	if (in_bounds(game, bx, by) == 0)
 		return (0);
-	tile = game->map->baba_map[y][x];
+	tile = game->map->baba_map[(game->player.baba_y + dy)]
+	[(game->player.baba_x + dx)];
 	dest = game->map->baba_map[by][bx];
 	if (dest == '8')
 		draw_tile(game, bx, by, tile);
@@ -32,6 +33,7 @@ int	push_block(t_game *game, int y, int x, int dx, int dy)
 		if (dest == '2')
 			add_instruction(game, tile);
 	}
-	draw_tile(game, x, y, '8');
+	draw_tile(game, (game->player.baba_x + dx),
+		(game->player.baba_y + dy), '8');
 	return (1);
 }

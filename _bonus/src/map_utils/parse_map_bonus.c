@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:58:48 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/27 16:51:22 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 07:32:36 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,73 +107,155 @@ static int	allocate_map_memory(t_map **map, char ***temp_map,
 	return (EXIT_SUCCESS);
 }
 
+static char	*read_next_non_empty_line(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line && line[0] == '\n')
+	{
+		ft_free((void **)&line);
+		line = get_next_line(fd);
+	}
+	return (line);
+}
+
+static size_t	strip_newline(char *line)
+{
+	size_t	len;
+
+	len = ft_strlen(line);
+	if (line[len - 1] == '\n')
+	{
+		line[len - 1] = '\0';
+		len--;
+	}
+	return (len);
+}
+
+static int	add_row(char **temp_map, char *line, size_t idx)
+{
+	char	*row;
+	size_t	len;
+
+	len = strip_newline(line);
+	row = ft_calloc(MAX_MAP_SIZE, sizeof(char));
+	if (!row)
+	{
+		ft_free((void **)&line);
+		ft_free_matrix((void **)temp_map);
+		return (EXIT_FAILURE);
+	}
+	ft_memcpy(row, line, len);
+	ft_free((void **)&line);
+	temp_map[idx] = row;
+	return (EXIT_SUCCESS);
+}
+
 static int	read_map_lines(int fd, char **temp_map)
 {
 	char	*line;
-	char	*row;
-	size_t	len;
 	size_t	lines_read;
+	int		status;
 
 	lines_read = 0;
-	line = get_next_line(fd);
+	line = read_next_non_empty_line(fd);
 	while (line)
 	{
-		if (line[0] == '\n')
-		{
-			ft_free((void **)&line);
-			line = get_next_line(fd);
-			continue ;
-		}
-		len = ft_strlen(line);
-		if (line[len - 1] == '\n')
-			line[len - 1] = '\0';
-		row = ft_calloc(1024 + 1, sizeof(char));
-		if (!row)
-		{
-			ft_free((void **)&line);
-			ft_free_matrix((void **)temp_map);
+		status = add_row(temp_map, line, lines_read);
+		if (status == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		}
-		ft_memcpy(row, line, len);
-		ft_free((void **)&line);
-		temp_map[lines_read++] = row;
-		line = get_next_line(fd);
+		lines_read++;
+		line = read_next_non_empty_line(fd);
 	}
 	if (lines_read == 0)
-		return (ft_printf("Error: Map file is empty\n"),
-			EXIT_FAILURE);
+	{
+		ft_printf("Error: Map file is empty\n");
+		return (EXIT_FAILURE);
+	}
 	return ((int)lines_read);
 }
 
-size_t	parse_map(t_game *game, char *map_path)
+static void	print_parsing_message(char *map_path)
 {
-	int		fd;
-	t_map	*map;
-	char	**temp_map;
-	size_t	lines_read;
-
 	ft_printf("Parsing map: %s\n", map_path);
+}
+
+static int	validate_extension(char *map_path)
+{
 	if (!has_ber_extension(map_path))
-		return (ft_printf("Error: Invalid file extension. Expected .ber\n"),
-			EXIT_FAILURE);
-	fd = open(map_path, O_RDONLY);
-	if (fd == -1)
-		return (ft_printf("Error: Failed to open map file\n"),
-			EXIT_FAILURE);
-	if (allocate_map_memory(&map, &temp_map, MAX_MAP_SIZE) == EXIT_FAILURE)
-		return (close(fd), EXIT_FAILURE);
-	lines_read = read_map_lines(fd, temp_map);
+	{
+		ft_printf("Error: Invalid file extension. Expected .ber\n");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	open_map_file(char *map_path, int *fd)
+{
+	*fd = open(map_path, O_RDONLY);
+	if (*fd == -1)
+	{
+		ft_printf("Error: Failed to open map file\n");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	load_temp_map(char *map_path, t_map **map,
+			char ***temp_map, size_t *lines_read)
+{
+	int	status;
+	int	fd;
+
+	status = open_map_file(map_path, &fd);
+	if (status == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	status = allocate_map_memory(map, temp_map, MAX_MAP_SIZE);
+	if (status == EXIT_FAILURE)
+	{
+		close(fd);
+		return (EXIT_FAILURE);
+	}
+	*lines_read = read_map_lines(fd, *temp_map);
 	close(fd);
-	if (lines_read == EXIT_FAILURE || lines_read == 1)
-		return (ft_free((void **)&map), ft_free_matrix((void **)temp_map),
-			EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+static int	finalize_map(t_game *game, t_map *map,
+			char **temp_map, size_t lines_read)
+{
 	map->ship_map = temp_map;
-	map->ship_map[lines_read] = NULL;
+	temp_map[lines_read] = NULL;
 	map->height = lines_read;
 	map->width = ft_strlen(temp_map[0]);
 	allocate_baba_map_memory(map);
 	if (!validate_map(map))
-		return (ft_free_matrix((void **)map->ship_map),
-			ft_free((void **)&map), EXIT_FAILURE);
-	return (game->map = map, EXIT_SUCCESS);
+	{
+		ft_free_matrix((void **)map->ship_map);
+		ft_free((void **)&map);
+		return (EXIT_FAILURE);
+	}
+	game->map = map;
+	return (EXIT_SUCCESS);
+}
+
+size_t	parse_map(t_game *game, char *map_path)
+{
+	t_map		*map;
+	char		**temp_map;
+	size_t		lines_read;
+	int			status;
+
+	print_parsing_message(map_path);
+	status = validate_extension(map_path);
+	if (status == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	status = load_temp_map(map_path, &map, &temp_map, &lines_read);
+	if (status == EXIT_FAILURE || lines_read <= 1)
+		return (EXIT_FAILURE);
+	status = finalize_map(game, map, temp_map, lines_read);
+	if (status == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

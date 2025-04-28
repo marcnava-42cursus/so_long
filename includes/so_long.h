@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 23:12:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/25 18:40:53 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:17:58 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_game
 size_t	init_game(t_game *game, char *map_path);
 size_t	parse_map(t_game *game, char *map_path);
 
-void	print_map(t_map *map);
+// void	print_map(t_map *map);
 int		check_valid_path(t_map *map);
 void	draw_map(t_game *game);
 int		load_textures(t_game *game);
@@ -83,5 +83,14 @@ void	close_window_handler(void *param);
 int		check_reachable_items(char **map_copy, t_map *map);
 int		clone_map_and_check(t_map *map, char ***map_copy);
 char	**clone_map(char **map, int height);
+
+int		has_ber_extension(char *filename);
+int		is_valid_char(char c);
+int		check_row_widths(t_map *map);
+int		count_elements(t_map *map, int *p_count, int *e_count, int *c_count);
+int		read_map_lines(int fd, char **temp_map);
+int		allocate_map_memory(t_map **map, char ***temp_map, int fd);
+int		validate_map(t_map *map);
+int		check_walls(t_map *map);
 
 #endif

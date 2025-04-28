@@ -6,7 +6,7 @@
 #    By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/06 04:37:29 by marcnava          #+#    #+#              #
-#    Updated: 2025/04/25 17:15:03 by marcnava         ###   ########.fr        #
+#    Updated: 2025/04/28 21:51:38 by marcnava         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS 		=	$(SRCSPATH)/so_long.c \
 SRCS		+=	$(UTILS)/map_checker.c \
 				$(UTILS)/flood_fill.c \
 				$(UTILS)/flood_fill_utils.c \
-				$(UTILS)/error_handler.c
+				$(UTILS)/error_handler.c \
+				$(UTILS)/map_checker_utils.c
 
 OBJS		:=	$(SRCS:$(SRCSPATH)/%.c=$(BUILD)/%.o)
 

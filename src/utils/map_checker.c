@@ -6,70 +6,13 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:15:02 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 08:50:32 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:17:21 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	has_ber_extension(char *filename)
-{
-	size_t	len;
-
-	len = ft_strlen(filename);
-	return (len > 4 && !ft_strncmp(filename + len - 4, ".ber", 4));
-}
-
-static int	is_valid_char(char c)
-{
-	return (c == '1' || c == '0' || c == 'P' || c == 'C' || c == 'E');
-}
-
-static int	check_row_widths(t_map *map)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < map->height)
-	{
-		if (ft_strlen(map->ship_map[i]) != map->width)
-		{
-			ft_printf("Error: Map rows must have the same width\n");
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	count_elements(t_map *map, int *p_count, int *e_count, int *c_count)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			if (!is_valid_char(map->ship_map[i][j]))
-				return (ft_printf("Error: Invalid character in map: %c\n",
-						map->ship_map[i][j]), 0);
-			if (map->ship_map[i][j] == 'P')
-				(*p_count)++;
-			if (map->ship_map[i][j] == 'E')
-				(*e_count)++;
-			if (map->ship_map[i][j] == 'C')
-				(*c_count)++;
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	check_walls(t_map *map)
+int	check_walls(t_map *map)
 {
 	size_t	j;
 	size_t	i;
@@ -94,7 +37,7 @@ static int	check_walls(t_map *map)
 	return (1);
 }
 
-static int	validate_map(t_map *map)
+int	validate_map(t_map *map)
 {
 	int	p_count;
 	int	e_count;
@@ -116,7 +59,7 @@ static int	validate_map(t_map *map)
 	return (1);
 }
 
-static int	allocate_map_memory(t_map **map, char ***temp_map, int fd)
+int	allocate_map_memory(t_map **map, char ***temp_map, int fd)
 {
 	*map = ft_calloc(1, sizeof(t_map));
 	if (!*map)
@@ -129,7 +72,7 @@ static int	allocate_map_memory(t_map **map, char ***temp_map, int fd)
 	return (EXIT_SUCCESS);
 }
 
-static int	read_map_lines(int fd, char **temp_map)
+int	read_map_lines(int fd, char **temp_map)
 {
 	char	*line;
 	size_t	lines_read;

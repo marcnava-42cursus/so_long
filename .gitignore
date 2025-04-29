@@ -7,5 +7,10 @@ mokup/
 *.o
 *.out
 *.log
+*.sh
+*.py
+*.md
+*.supp
 
 so_long
+.gitignore

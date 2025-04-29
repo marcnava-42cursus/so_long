@@ -53,7 +53,7 @@ OBJS		:=	$(SRCS:$(SRCSPATH)/%.c=$(BUILD)/%.o)
 # **************************************************************************** #
 #		RULES		#
 
-all: 			libmlx $(NAME)
+all: 			libs libmlx $(NAME)
 .PHONY:		all
 
 libmlx:
@@ -73,12 +73,11 @@ $(BUILD)/%.o:	$(SRCSPATH)/%.c
 clean:
 				@$(RM) $(BUILD)
 				@$(RM) $(LIBMLX)/build
-				@$(MAKE) --no-print-directory -s -C $(LIBFT) clean
 .PHONY:		clean
 
 fclean:			clean
 				@$(RM) $(NAME)
-				@$(MAKE) --no-print-directory -s -C $(LIBFT) fclean
+				@$(RM) libs/
 .PHONY:		fclean
 
 re:				fclean all
@@ -86,4 +85,14 @@ re:				fclean all
 
 bonus:			libmlx $(LIBFT)/libft.a
 				make --no-print-directory -C _bonus/ all
+
+libs:			libs/libft/Makefile libs/minilibx/CMakeLists.txt
+.PHONY:			libs
+
+libs/libft/Makefile:
+				git clone https://github.com/marcnava-42cursus/libft libs/libft
+
+libs/minilibx/CMakeLists.txt:
+				git clone https://github.com/codam-coding-college/MLX42.git libs/minilibx
+
 .PHONY:		bonus

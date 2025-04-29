@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 15:49:15 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 18:27:09 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 23:48:45 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define SHIP_WEST 'T'
 # define SHIP_EAST 'Q'
 
-# define MAX_MAP_SIZE 1024
+# define MAX_MAP_SIZE 201
 
 typedef struct s_map
 {
@@ -141,7 +141,6 @@ void		allocate_baba_map_memory(t_map *map);
 int			load_temp_map(char *map_path, t_map **map, char ***temp_map,
 				size_t *lines_read);
 int			add_row(char **temp_map, char *line, size_t idx);
-char		*read_next_non_empty_line(int fd);
 int			validate_extension(char *map_path);
 int			open_map_file(char *map_path, int *fd);
 size_t		strip_newline(char *line);

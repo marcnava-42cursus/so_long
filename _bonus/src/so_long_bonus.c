@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:19:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 21:14:07 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/29 02:26:41 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	ft_memset(&game, 0, sizeof(t_game));
 	if (argc != 2)
 	{
 		ft_printf("Usage: %s <map_path>\n", argv[0]);

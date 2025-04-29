@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:35:47 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/24 18:51:18 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/29 00:43:57 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,7 @@ int	check_reachable_items(char **map_copy, t_map *map)
 {
 	size_t	y;
 	size_t	x;
-	size_t	found_c;
-	size_t	found_e;
 
-	found_c = 0;
-	found_e = 0;
 	y = 0;
 	while (y < map->height)
 	{
@@ -63,15 +59,18 @@ int	check_reachable_items(char **map_copy, t_map *map)
 		while (map->ship_map[y][x])
 		{
 			if (map->ship_map[y][x] == 'C' && map_copy[y][x] != 'V')
-				found_c = 1;
-			if (map->ship_map[y][x] == 'E' && map_copy[y][x] != 'V')
-				found_e = 1;
+				return (ft_printf("Error: Can't reach all elements\n"), 0);
+			if (map->ship_map[y][x] == 'E')
+			{
+				if (!((y > 0 && map_copy[y - 1][x] == 'V')
+					|| (y + 1 < map->height && map_copy[y + 1][x] == 'V')
+					|| (x > 0 && map_copy[y][x - 1] == 'V')
+					|| (map_copy[y][x + 1] == 'V')))
+					return (ft_printf("Error: Exit is not accesible\n"), 0);
+			}
 			x++;
 		}
 		y++;
 	}
-	if (found_c || found_e)
-		return (ft_printf(
-				"Error: Not all collectibles or exit are reachable\n"), 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 08:22:28 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 18:53:27 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:26:12 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	add_row(char **temp_map, char *line, size_t idx)
 	return (EXIT_SUCCESS);
 }
 
+//! DEPRECATED
 char	*read_next_non_empty_line(int fd)
 {
 	char	*line;

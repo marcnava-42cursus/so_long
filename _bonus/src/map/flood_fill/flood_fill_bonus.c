@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:47:52 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 22:05:21 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/29 00:48:39 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ int	check_reachable_items(char **map_copy, t_map *map)
 	size_t	y;
 	size_t	x;
 	int		found_c;
-	int		found_e;
 
 	found_c = 0;
-	found_e = 0;
 	y = 0;
 	while (y < map->height)
 	{
@@ -66,13 +64,11 @@ int	check_reachable_items(char **map_copy, t_map *map)
 		{
 			if (map->ship_map[y][x] == 'C' && map_copy[y][x] != 'V')
 				found_c = 1;
-			if (map->ship_map[y][x] == 'E' && map_copy[y][x] != 'V')
-				found_e = 1;
 			x++;
 		}
 		y++;
 	}
-	if (found_c || found_e)
+	if (found_c)
 		return (0);
 	return (1);
 }
@@ -92,6 +88,7 @@ int	check_valid_path(t_map *map)
 	if (!check_reachable_items(map_copy, map))
 	{
 		ft_free_matrix((void **)map_copy);
+		ft_printf("Error: Not all collectibles are reachable\n");
 		return (0);
 	}
 	ft_free_matrix((void **)map_copy);

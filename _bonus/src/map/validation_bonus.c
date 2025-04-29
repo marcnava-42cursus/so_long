@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 08:25:24 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 22:05:56 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/29 00:46:44 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	validate_map(t_map *map)
 	e_count = 0;
 	c_count = 0;
 	if (!check_row_widths(map))
-		return (ft_printf("Error: Different width sizes"), 0);
+		return (ft_printf("Error: Map rows must have the same width\n"), 0);
 	if (!count_elements(map, &p_count, &e_count, &c_count))
 		return (ft_printf("Error: Invalid character in map\n"), 0);
 	if (map_errors(p_count, c_count, e_count))
@@ -56,7 +56,7 @@ int	validate_map(t_map *map)
 		return (ft_printf("Error: Map is not surrounded by walls\n"), 0);
 	if (!check_valid_path(map))
 		return (ft_printf(
-			"Error: Not all collectibles or exit are reachable\n"), 0);
+				"Error: Not all collectibles or exit are reachable\n"), 0);
 	if (!check_min_width(map))
 		return (ft_printf("Error: Cannot add extra chars to map\n"), 0);
 	return (1);
@@ -70,10 +70,7 @@ int	check_row_widths(t_map *map)
 	while (i < map->height)
 	{
 		if (ft_strlen(map->ship_map[i]) != map->width)
-		{
-			ft_printf("Error: Map rows must have the same width\n");
 			return (0);
-		}
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 18:15:02 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 21:17:21 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/29 00:46:26 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	allocate_map_memory(t_map **map, char ***temp_map, int fd)
 	if (!*map)
 		return (ft_printf("Error: Failed to allocate memory for map\n"),
 			close(fd), EXIT_FAILURE);
-	*temp_map = ft_calloc(1024, sizeof(char *));
+	*temp_map = ft_calloc(200 + 1, sizeof(char *));
 	if (!*temp_map)
 		return (ft_printf("Error: Failed to allocate memory for map\n"),
 			close(fd), free(*map), EXIT_FAILURE);
@@ -81,12 +81,7 @@ int	read_map_lines(int fd, char **temp_map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line[0] == '\n')
-		{
-			free(line);
-			continue ;
-		}
-		if (lines_read >= 1024)
+		if (lines_read >= 200)
 			return (ft_printf("Error: Map too large\n"), free(line),
 				ft_free_matrix((void **)temp_map), EXIT_FAILURE);
 		if (line[ft_strlen(line) - 1] == '\n')

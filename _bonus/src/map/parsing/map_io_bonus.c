@@ -6,7 +6,7 @@
 /*   By: marcnava <marcnava@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 08:45:34 by marcnava          #+#    #+#             */
-/*   Updated: 2025/04/28 18:49:16 by marcnava         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:23:56 by marcnava         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	read_map_lines(int fd, char **temp_map)
 	int		status;
 
 	lines_read = 0;
-	line = read_next_non_empty_line(fd);
+	line = get_next_line(fd);
 	while (line)
 	{
 		status = add_row(temp_map, line, lines_read);
 		if (status == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		lines_read++;
-		line = read_next_non_empty_line(fd);
+		line = get_next_line(fd);
 	}
 	if (lines_read == 0)
 	{

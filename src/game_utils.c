@@ -23,17 +23,17 @@ size_t	init_game(t_game *game, char *map_path)
 		exit(EXIT_FAILURE);
 	req_w = game->map->width * TILE_SIZE;
 	req_h = game->map->height * TILE_SIZE;
-	mlx_get_monitor_size(0, &screen_w, &screen_h);
-	// if (req_w > screen_w || req_h > screen_h)
-	// {
-	// 	ft_printf("Map bigger than current window\n");
-	// 	cleanup_and_exit(game);
-	// 	exit(EXIT_FAILURE);
-	// }
 	game->mlx = mlx_init(req_w, req_h, TITLE, false);
 	if (!game->mlx)
 	{
 		ft_printf("Error: Failed to initialize mlx\n");
+		cleanup_and_exit(game);
+		exit(EXIT_FAILURE);
+	}
+	mlx_get_monitor_size(0, &screen_w, &screen_h);
+	if (req_w > screen_w || req_h > screen_h)
+	{
+		ft_printf("Map bigger than current window\n");
 		cleanup_and_exit(game);
 		exit(EXIT_FAILURE);
 	}

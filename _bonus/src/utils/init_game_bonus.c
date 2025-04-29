@@ -86,8 +86,8 @@ static void	initialize_all(t_game *game)
 
 size_t	init_game(t_game *game, char *map_path)
 {
-	int32_t	screen_w = 42;
-	int32_t	screen_h = 41;
+	int32_t	screen_w;
+	int32_t	screen_h;
 	int32_t	req_w;
 	int32_t	req_h;
 
@@ -95,13 +95,12 @@ size_t	init_game(t_game *game, char *map_path)
 		exit(EXIT_FAILURE);
 	req_w = game->map->width * TILE_SIZE;
 	req_h = game->map->height * TILE_SIZE + 7 * TILE_SIZE;
-	mlx_get_monitor_size(0, &screen_w, &screen_h);
-	ft_printf("%d-%d : %d-%d\n", req_w, req_h, screen_w, screen_h);
-	if (req_w > screen_w || req_h > screen_h)
-		message_and_cleanup(game, "Error: Map bigger than current window");
 	game->mlx = mlx_init(req_w, req_h, TITLE, false);
 	if (!game->mlx)
 		message_and_cleanup(game, "Error: Failed to initialize mlx");
+	mlx_get_monitor_size(0, &screen_w, &screen_h);
+	if (req_w > screen_w || req_h > screen_h)
+		message_and_cleanup(game, "Error: Map bigger than current window");
 	if (!allocate_image_map(game->map))
 		cleanup_and_exit(game);
 	if (!allocate_baba_image_map(game->map))
